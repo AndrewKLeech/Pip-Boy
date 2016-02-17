@@ -1,2 +1,2 @@
 # Pip-Boy
-Recreating the Pip-Boy from the fallout series.
+Recreating the Pip-Boy from the Fallout series.
