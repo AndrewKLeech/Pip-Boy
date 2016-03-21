@@ -2,7 +2,7 @@ from cgitb import text
 from tkinter import *
 from tkinter import ttk
 
-window  = Tk()
+window = Tk()
 
 window.title('PipBoy')
 
