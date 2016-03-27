@@ -1,13 +1,17 @@
 from cgitb import text
 from tkinter import *
-from tkinter import ttk
+from PIL import Image, ImageTk
+
 
 class MyDesign():
     def __init__(self):
 
         self.window = Tk()
         self.window.title('PipBoy')
-        self.window.configure(bg = "black", width = 200, height = 200)
+        self.window.configure(bg = "black")
+        self.window.geometry('400x300')
+
+        self.window.columnconfigure((0,2), weight=1)
 
         label = Label(self.window, text = "Example text")
 
@@ -25,6 +29,10 @@ class MyDesign():
 
         stats = Button(self.window, text ="STATS", width=10, bg="black", fg="green")
         stats.grid(row = 0, column=5)
+
+        img = PhotoImage(file = "pip-boy.gif")
+        label = Label(self.window, image = img, bg = "black")
+
 
         self.window.mainloop()
 
