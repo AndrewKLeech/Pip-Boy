@@ -18,7 +18,7 @@ class SetUp(tk.Tk):  #inheriting
 
         self.frames = {}  #dictionary of frames
 
-        for F in (StartPage, RadioPage): #loop through the number of pages
+        for F in (StartPage, RadioPage, MapPage, DataPage, InvPage, StatsPage): #loop through the number of pages
 
             frame = F(container, self)
 
@@ -44,21 +44,26 @@ class StartPage(tk.Frame):
                           command = lambda: controller.show_frame(RadioPage))
         radio.grid(row = 0, column=1)
 
-        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10)
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
         map.grid(row =0, column=2)
 
-        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10)
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
         data.grid(row = 0, column=3)
 
-        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10)
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
         inv.grid(row = 0, column=4)
 
-        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
         stats.grid(row = 0, column=5)
 
         img = tk.PhotoImage(Image.open(photo))
         label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
         label.grid(column = 1)
+
 
 class RadioPage(tk.Frame):
 
@@ -67,10 +72,52 @@ class RadioPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
-        label = tk.Label(self, text = "spotify functionality", bg = "black", fg = "white")
-        label.grid(column = 1)
+        label = tk.Label(self, text = "radio functionality", bg = "black", fg = "white")
+        label.grid(row = 1, column = 1)
+
+
+class MapPage(tk.Frame):
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        label = tk.Label(self, text = "map functionality", bg = "black", fg = "white")
+        label.grid(row = 1, column = 1)
+
+
+class DataPage(tk.Frame):
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        label = tk.Label(self, text = "data functionality", bg = "black", fg = "white")
+        label.grid(row = 1, column = 1)
+
+
+class InvPage(tk.Frame):
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        label = tk.Label(self, text = "inv functionality", bg = "black", fg = "white")
+        label.grid(row = 1, column = 1)
+
+
+class StatsPage(tk.Frame):
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        label = tk.Label(self, text = "stats functionality", bg = "black", fg = "white")
+        label.grid(row = 1, column = 1)
 
 app = SetUp()
 app.mainloop()
+
+
 
 
