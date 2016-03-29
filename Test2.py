@@ -1,43 +1,63 @@
-from cgitb import text
-from tkinter import *
+import tkinter as tk
 from PIL import Image, ImageTk
 
+PIP_FONT = ("Verdana", 12)
+photo = "mrPip.gif"
 
-class MyDesign():
-    def __init__(self):
 
-        self.window = Tk()
-        self.window.resizable(width=FALSE, height=FALSE)
-        self.window.title('PipBoy')
-        self.window.configure(bg = "black")
-        self.window.geometry('400x300')
+class SetUp(tk.Tk):  #inheriting
 
-        self.window.columnconfigure((0,2), weight=1)
+    def __init__(self, *args, **kwargs):  #method, initialisng
 
-        label = Label(self.window, text = "Example text")
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self) #container for holding everything
 
-        radio = Button(self.window, text ="RADIO", bg="black", fg="green", width = 10)
+        container.pack(side = "top", fill = "both", expand = True)
+        container.grid_rowconfigure(0, weight = 1)
+        container.grid_columnconfigure(0, weight = 1)
+
+        self.frames = {}  #dictionary of frames
+
+        frame = StartPage(container, self)
+
+        self.frames[StartPage] = frame
+
+        frame.grid(row = 0, column = 0, sticky = "nsew") #alignment plus stretch
+
+        self.show_frame(StartPage)
+
+    def show_frame(self, cont):
+
+        frame = self.frames[cont]
+        frame.tkraise() #raised to the front
+
+class StartPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10)
         radio.grid(row = 0, column=1)
 
-        map = Button(self.window, text ="MAP", bg="black", fg="green", width = 10)
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10)
         map.grid(row =0, column=2)
 
-        data = Button(self.window, text="DATA", bg="black", fg="green", width = 10)
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10)
         data.grid(row = 0, column=3)
 
-        inv = Button(self.window, text ="INV", bg="black", fg="green", width = 10)
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10)
         inv.grid(row = 0, column=4)
 
-        stats = Button(self.window, text ="STATS", bg="black", fg="green", width = 10)
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
         stats.grid(row = 0, column=5)
 
-        photo = "mrPip.gif"
+        img = tk.PhotoImage(Image.open(photo))
+        label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
+        label.grid(column = 3)
 
-        img = ImageTk.PhotoImage(Image.open(photo))
-        tile = Label(self.window, image = img, borderwidth = 0, width = 100)
-        tile.grid(column = 3, columnspan = 2) #now row included because photo with automatically go to the next line
+app = SetUp()
+app.mainloop()
 
 
-        self.window.mainloop()
-
-design = MyDesign()
