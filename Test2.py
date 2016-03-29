@@ -7,6 +7,7 @@ class MyDesign():
     def __init__(self):
 
         self.window = Tk()
+        self.window.resizable(width=FALSE, height=FALSE)
         self.window.title('PipBoy')
         self.window.configure(bg = "black")
         self.window.geometry('400x300')
@@ -33,11 +34,10 @@ class MyDesign():
         photo = "mrPip.gif"
 
         img = ImageTk.PhotoImage(Image.open(photo))
-        tile = Label(self.window, image = img)
-        tile.grid(row = 3, column = 3, columnspan = 2)
+        tile = Label(self.window, image = img, borderwidth = 0, width = 100)
+        tile.grid(column = 3, columnspan = 2) #now row included because photo with automatically go to the next line
 
 
         self.window.mainloop()
 
 design = MyDesign()
-design.mainloop()
