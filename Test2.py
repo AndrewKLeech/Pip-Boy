@@ -15,23 +15,26 @@ class MyDesign():
 
         label = Label(self.window, text = "Example text")
 
-        radio = Button(self.window, text ="RADIO", width=10, bg="black", fg="green")
+        radio = Button(self.window, text ="RADIO", bg="black", fg="green", width = 10)
         radio.grid(row = 0, column=1)
 
-        map = Button(self.window, text ="MAP", width=10, bg="black", fg="green")
+        map = Button(self.window, text ="MAP", bg="black", fg="green", width = 10)
         map.grid(row =0, column=2)
 
-        data = Button(self.window, text="DATA", width=10, bg="black", fg="green")
+        data = Button(self.window, text="DATA", bg="black", fg="green", width = 10)
         data.grid(row = 0, column=3)
 
-        inv = Button(self.window, text ="INV", width=10, bg="black", fg="green")
+        inv = Button(self.window, text ="INV", bg="black", fg="green", width = 10)
         inv.grid(row = 0, column=4)
 
-        stats = Button(self.window, text ="STATS", width=10, bg="black", fg="green")
+        stats = Button(self.window, text ="STATS", bg="black", fg="green", width = 10)
         stats.grid(row = 0, column=5)
 
-        img = PhotoImage(file = "pip-boy.gif")
-        label = Label(self.window, image = img, bg = "black")
+        photo = "mrPip.gif"
+
+        img = ImageTk.PhotoImage(Image.open(photo))
+        tile = Label(self.window, image = img)
+        tile.grid(row = 3, column = 3, columnspan = 2)
 
 
         self.window.mainloop()
