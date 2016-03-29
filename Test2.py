@@ -18,11 +18,13 @@ class SetUp(tk.Tk):  #inheriting
 
         self.frames = {}  #dictionary of frames
 
-        frame = StartPage(container, self)
+        for F in (StartPage, RadioPage): #loop through the number of pages
 
-        self.frames[StartPage] = frame
+            frame = F(container, self)
 
-        frame.grid(row = 0, column = 0, sticky = "nsew") #alignment plus stretch
+            self.frames[F] = frame
+
+            frame.grid(row = 0, column = 0, sticky = "nsew") #alignment plus stretch
 
         self.show_frame(StartPage)
 
@@ -38,7 +40,8 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
-        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10)
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
         radio.grid(row = 0, column=1)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10)
@@ -55,7 +58,17 @@ class StartPage(tk.Frame):
 
         img = tk.PhotoImage(Image.open(photo))
         label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
-        label.grid(column = 3)
+        label.grid(column = 1)
+
+class RadioPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+
+        tk.Frame.__init__(self, parent)
+        tk.Frame.configure(self, bg = "black")
+
+        label = tk.Label(self, text = "spotify functionality", bg = "black", fg = "white")
+        label.grid(column = 1)
 
 app = SetUp()
 app.mainloop()
