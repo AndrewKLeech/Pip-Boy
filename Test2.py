@@ -217,18 +217,22 @@ class StatsPage(tk.Frame):
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
         stats.grid(row = 0, column=5)
 
-        f = Figure(figsize = (4,2), dpi = 100)
+        f = Figure(figsize = (5,5), dpi = 100)
         a = f.add_subplot(111) #onexone chart number 1
 
         data = (1, 2, 3, 4, 5)
         ind = numpy.arange(5) #the x plots
-        width = .5
+        width = 0.35
 
-        barh = a.bar(ind, data, width)
+        barh = a.bar(ind + width, data, width, color = 'g')
+
+        a.set_title('Stats')
+        a.set_xticks(ind + width)
+        a.set_xticklabels(('Strength', 'Perception', 'Endurance', 'Charisma', 'Agility'))
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
-        canvas.get_tk_widget().grid(row = 1, column = 1)
+        canvas.get_tk_widget().grid(row = 1, column = 3)
 
 app = SetUp()
 app.mainloop()
