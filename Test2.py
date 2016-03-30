@@ -224,7 +224,7 @@ class StatsPage(tk.Frame):
         ind = numpy.arange(5) #the x plots
         width = 0.35
 
-        barh = a.bar(ind + width, data, width, color = 'g')
+        barh = a.barh(ind + width, data, width, color = 'g')
 
         a.set_title('Stats')
         a.set_xticks(ind + width)
