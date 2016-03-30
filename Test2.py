@@ -72,6 +72,25 @@ class RadioPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10)
+        radio.grid(row = 0, column=1)
+
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
+        map.grid(row =0, column=2)
+
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
+        data.grid(row = 0, column=3)
+
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
+        inv.grid(row = 0, column=4)
+
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
+        stats.grid(row = 0, column=5)
+
         label = tk.Label(self, text = "radio functionality", bg = "black", fg = "white")
         label.grid(row = 1, column = 1)
 
@@ -81,6 +100,25 @@ class MapPage(tk.Frame):
 
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
+
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
+        radio.grid(row = 0, column=1)
+
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10)
+        map.grid(row =0, column=2)
+
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
+        data.grid(row = 0, column=3)
+
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
+        inv.grid(row = 0, column=4)
+
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
+        stats.grid(row = 0, column=5)
 
         label = tk.Label(self, text = "map functionality", bg = "black", fg = "white")
         label.grid(row = 1, column = 1)
@@ -92,6 +130,25 @@ class DataPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
+        radio.grid(row = 0, column=1)
+
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
+        map.grid(row =0, column=2)
+
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10)
+        data.grid(row = 0, column=3)
+
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
+        inv.grid(row = 0, column=4)
+
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
+        stats.grid(row = 0, column=5)
+
         label = tk.Label(self, text = "data functionality", bg = "black", fg = "white")
         label.grid(row = 1, column = 1)
 
@@ -102,6 +159,25 @@ class InvPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
+        radio.grid(row = 0, column=1)
+
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
+        map.grid(row =0, column=2)
+
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
+        data.grid(row = 0, column=3)
+
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10)
+        inv.grid(row = 0, column=4)
+
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
+        stats.grid(row = 0, column=5)
+
         label = tk.Label(self, text = "inv functionality", bg = "black", fg = "white")
         label.grid(row = 1, column = 1)
 
@@ -111,6 +187,25 @@ class StatsPage(tk.Frame):
 
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
+
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
+        radio.grid(row = 0, column=1)
+
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
+        map.grid(row =0, column=2)
+
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
+        data.grid(row = 0, column=3)
+
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
+        inv.grid(row = 0, column=4)
+
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
+        stats.grid(row = 0, column=5)
 
         label = tk.Label(self, text = "stats functionality", bg = "black", fg = "white")
         label.grid(row = 1, column = 1)
