@@ -1,16 +1,31 @@
 import matplotlib
 import numpy
-
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 import tkinter as tk
 import tkinter as ttk
-from PIL import Image, ImageTk
-from pylab import *
+import spotipy
+import sys
+import webbrowser
 
 PIP_FONT = ("Verdana", 12)
 photo = "mrPip.gif"
+
+uri_ID = 'spotify:artist:1Xylc3o4UrD53lo9CvFvVg'
+
+spotify = spotipy.Spotify()
+results = spotify.artist_top_tracks(uri_ID)
+
+#getting the track and audio link to top zara larrson song
+for track in results['tracks'][:1]:
+   text = 'Track    : ' + track['name']
+   text2 = track['preview_url']
+
+
+def callback(event):
+    webbrowser.open_new(event.widget.cget("textvariable"))
+
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -70,7 +85,6 @@ class StartPage(tk.Frame):
                           command = lambda: controller.show_frame(StatsPage))
         stats.grid(row = 0, column=5)
 
-        img = tk.PhotoImage(Image.open(photo))
         label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
         label.grid(column = 1)
 
@@ -101,8 +115,16 @@ class RadioPage(tk.Frame):
                           command = lambda: controller.show_frame(StatsPage))
         stats.grid(row = 0, column=5)
 
-        label = tk.Label(self, text = "radio functionality", bg = "black", fg = "white")
-        label.grid(row = 1, column = 1)
+        var = tk.StringVar()
+        var.set(text)
+        var2 = tk.StringVar()
+        var2.set(text2)
+        label = tk.Label(self, textvariable = var, bg = "black", fg = "white")
+        label.grid(row = 1, column = 1, sticky = "w")
+        label2 = tk.Label(self, textvariable = var2, bg = "black", fg = "white", cursor = "hand2")
+        label2.bind("<Button-1>", callback)
+        label2.grid(row = 2, column = 1)
+
 
 
 class MapPage(tk.Frame):
@@ -217,15 +239,16 @@ class StatsPage(tk.Frame):
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
         stats.grid(row = 0, column=5)
 
-        f = Figure(figsize = (5,5), dpi = 100)
+        f = Figure(figsize = (7,5), dpi = 50)
         a = f.add_subplot(111) #onexone chart number 1
 
         data = (1, 2, 3, 4, 5)
         ind = numpy.arange(5) #the x plots
-        width = 0.35
+        width = 0.4
 
-        barh = a.barh(ind + width, data, width, color = 'g')
+        a.barh(ind + width, data, width, color = 'g')
 
+        a.set_axis_bgcolor('black')
         a.set_title('Stats')
         a.set_xticks(ind + width)
         a.set_xticklabels(('Strength', 'Perception', 'Endurance', 'Charisma', 'Agility'))
