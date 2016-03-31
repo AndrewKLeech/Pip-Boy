@@ -24,8 +24,7 @@ for track in results['tracks'][:1]:
 
 
 def callback(event):
-    webbrowser.open_new(event.widget.cget("textvariable"))
-
+    webbrowser.open_new(event.widget.cget("text"))
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -117,11 +116,14 @@ class RadioPage(tk.Frame):
 
         var = tk.StringVar()
         var.set(text)
-        var2 = tk.StringVar()
-        var2.set(text2)
+
+        #var2 = tk.StringVar()
+         # var2.set(text2)
+
         label = tk.Label(self, textvariable = var, bg = "black", fg = "white")
         label.grid(row = 1, column = 1, sticky = "w")
-        label2 = tk.Label(self, textvariable = var2, bg = "black", fg = "white", cursor = "hand2")
+
+        label2 = tk.Label(self, text = r"https://p.scdn.co/mp3-preview/10dae37faa43cd82a3c232eb4d98139d7f0593f9", bg = "black", fg = "white", cursor = "hand2")
         label2.bind("<Button-1>", callback)
         label2.grid(row = 2, column = 1)
 
