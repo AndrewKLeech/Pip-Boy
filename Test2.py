@@ -125,7 +125,7 @@ class RadioPage(tk.Frame):
 
         label2 = tk.Label(self, textvariable = var2, bg = "black", fg = "white", cursor = "hand2")
         label2.bind("<Button-1>", callback)
-        label2.grid(row = 2, column = 1, sticky = "w")
+        label2.grid(row = 2, column = 1, sticky = "w", columnspan = 6)
 
 
 
@@ -257,11 +257,7 @@ class StatsPage(tk.Frame):
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
-        canvas.get_tk_widget().grid(row = 1, column = 1, sticky = "w")
+        canvas.get_tk_widget().grid(row = 2, column = 0, sticky = "w", columnspan = 6)
 
 app = SetUp()
 app.mainloop()
-
-
-
-
