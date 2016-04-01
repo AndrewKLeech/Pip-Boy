@@ -1,6 +1,7 @@
 # Game for Pip-Boy
 # Imports
 import pygame
+import time
 
 # Initialise PyGame
 pygame.init()
@@ -23,6 +24,9 @@ green = (0, 255, 0)
 smallFont = pygame.font.SysFont(None, 25)
 mediumFont = pygame.font.SysFont(None, 50)
 largeFont = pygame.font.SysFont(None, 75)
+
+# Initialise the clock for FPS
+clock = pygame.time.Clock()
 
 
 def game_intro():  # Function for game introduction screen
@@ -48,3 +52,54 @@ def game_intro():  # Function for game introduction screen
         pygame.display.update()
 
 game_intro()
+
+
+def gameLoop():
+    gameExit = False
+    gameOver = False
+    FPS = 15
+
+    while not gameExit:
+
+        if gameOver == True:
+            pygame.display.update()
+            while gameOver == True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        gameExit = True
+                        gameOver = False
+
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_c:
+                            gameLoop()
+                        elif event.key == pygame.K_q:
+
+                            gameExit = True
+                            gameOver = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameExit = True
+
+            # Pass acts as a place holder until buttons are used
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    pass
+
+                elif event.key == pygame.K_RIGHT:
+                    pass
+
+                elif event.key == pygame.K_UP:
+                    pass
+
+                elif event.key == pygame.K_DOWN:
+                    pass
+
+        gameDisplay.fill(black)
+        pygame.display.update()
+        clock.tick(FPS)
+
+    pygame.quit()
+    quit()
+
+gameLoop()
