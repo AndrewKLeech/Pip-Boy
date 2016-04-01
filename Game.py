@@ -1,20 +1,24 @@
+# Game for Pip-Boy
+# Imports
 import pygame
 
+# Initialise PyGame
 pygame.init()
 
-white = (255, 255, 255)
+# Set display width and height
+display_width = 500
+display_height = 500
+
+# Create a gameDisplay using display_width and display_height
+gameDisplay = pygame.display.set_mode((display_width, display_height))
+
+# Set the caption of the window to Turret Defense
+pygame.display.set_caption('Turret Defense')
+
+# Create colours using RGB values
 black = (0, 0, 0)
-red = (255, 0, 0)
 green = (0, 255, 0)
-blue = (0, 0, 255)
 
-gameDisplay = pygame.display.set_mode((800, 600))
-gameDisplay.fill(black)
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.quit:
-            pygame.quit()
-            quit()
-
-    pygame.display.update()
+smallFont = pygame.font.SysFont(None, 25)
+mediumFont = pygame.font.SysFont(None, 50)
+largeFont = pygame.font.SysFont(None, 75)
