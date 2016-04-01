@@ -103,3 +103,23 @@ def gameLoop():
     quit()
 
 gameLoop()
+
+
+def pause():
+    paused = True
+    pygame.display.update()
+    while paused:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        paused = False
+
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
+
+        clock.tick(5)
