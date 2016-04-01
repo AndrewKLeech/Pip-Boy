@@ -19,6 +19,32 @@ pygame.display.set_caption('Turret Defense')
 black = (0, 0, 0)
 green = (0, 255, 0)
 
+# Create fonts
 smallFont = pygame.font.SysFont(None, 25)
 mediumFont = pygame.font.SysFont(None, 50)
 largeFont = pygame.font.SysFont(None, 75)
+
+
+def game_intro():  # Function for game introduction screen
+
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_c:
+                        intro = False
+
+                    elif event.key == pygame.K_q:
+                        pygame.quit()
+                        quit()
+
+        gameDisplay.fill(black)
+
+        pygame.display.update()
+
+game_intro()
