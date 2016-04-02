@@ -100,7 +100,8 @@ def game_intro():  # Function for game introduction screen
         pygame.draw.rect(gameDisplay, green, (375, 400, 100, 50))
         # Text on the buttons
         text_to_button("Play", black, 25, 400, 100, 50)
-
+        text_to_button("Controls", black, 200, 400, 100, 50)
+        text_to_button("Quit", black, 375, 400, 100, 50)
         pygame.display.update()
         clock.tick(15)
 
