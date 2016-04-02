@@ -53,11 +53,22 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
     gameDisplay.blit(textSurface, textRect)
 
 
-def button(text, x, y, width, height, colour, active_colour):  # Creates the button, both active and inactive
+def button(text, x, y, width, height, colour, active_colour, action):  # Creates the button, both active and inactive
     cursor = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
 
     if x + width > cursor[0] > x and y + height > cursor[1] > y:
         pygame.draw.rect(gameDisplay, active_colour, (x, y, width, height))
+        if click[0] == 1 and action != None:
+            if action == "play":
+                gameLoop()
+
+            if action == "controls":
+                pass
+
+            if action == "quit":
+                pygame.quit()
+                quit()
     else:
         pygame.draw.rect(gameDisplay, colour, (x, y, width, height))
 
@@ -108,14 +119,12 @@ def game_intro():  # Function for game introduction screen
         message_to_screen("Welcome to Tanks!", green, 0, size="largeFont")
 
         # Text on the buttons
-        button("Play", 25, 400, 100, 50, green, lightGreen)
-        button("Controls", 200, 400, 100, 50, green, lightGreen)
-        button("Quit", 375, 400, 100, 50, green, lightGreen)
+        button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
+        button("Controls", 200, 400, 100, 50, green, lightGreen, action="controls")
+        button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
 
         pygame.display.update()
         clock.tick(15)
-
-game_intro()
 
 
 def gameLoop():
@@ -169,4 +178,5 @@ def gameLoop():
     pygame.quit()
     quit()
 
+game_intro()
 gameLoop()
