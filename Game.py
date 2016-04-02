@@ -29,6 +29,23 @@ largeFont = pygame.font.SysFont(None, 75)
 clock = pygame.time.Clock()
 
 
+def text_objects(text, color, size="smallFont"):
+    if size == "smallFont":
+        textSurface = smallFont.render(text, True, color)
+    if size == "mediumFont":
+        textSurface = mediumFont.render(text, True, color)
+    if size == "largeFont":
+        textSurface = largeFont.render(text, True, color)
+
+    return textSurface, textSurface.get_rect()
+
+
+def message_to_screen(msg, color, y_displace=0, size= "smallFont"):
+    textSurface, textRect = text_objects(msg, color, size)
+    textRect.center = (int(display_width / 2), int(display_height / 2)+y_displace)
+    gameDisplay.blit(textSurface, textRect)
+
+
 def game_intro():  # Function for game introduction screen
 
     intro = True
@@ -48,8 +65,9 @@ def game_intro():  # Function for game introduction screen
                         quit()
 
         gameDisplay.fill(black)
-
+        message_to_screen("Welcome to Tanks!", green, -100, size="largeFont")
         pygame.display.update()
+        clock.tick(15)
 
 game_intro()
 
@@ -72,8 +90,8 @@ def gameLoop():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_c:
                             gameLoop()
-                        elif event.key == pygame.K_q:
 
+                        elif event.key == pygame.K_q:
                             gameExit = True
                             gameOver = False
 
@@ -107,6 +125,8 @@ gameLoop()
 
 def pause():
     paused = True
+    message_to_screen("Paused", green, -100, size="large")
+    message_to_screen("Press C to continue playing or Q to quit", green, 25)
     pygame.display.update()
     while paused:
         for event in pygame.event.get():
@@ -123,20 +143,3 @@ def pause():
                         quit()
 
         clock.tick(5)
-
-
-def text_objects(text, color, size="smallFont"):
-    if size == "smallFont":
-        textSurface = smallFont.render(text, True, color)
-    if size == "mediumFont":
-        textSurface = mediumFont.render(text, True, color)
-    if size == "largeFont":
-        textSurface = largeFont.render(text, True, color)
-
-    return textSurface, textSurface.get_rect()
-
-
-def message_to_screen(msg, color, y_displace=0, size= "smallFont"):
-    textSurface, textRect = text_objects(msg, color, size)
-    textRect.center = (int(display_width / 2), int(display_height / 2)+y_displace)
-    gameDisplay.blit(textSurface, textRect)
