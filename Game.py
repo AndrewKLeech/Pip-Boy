@@ -18,7 +18,8 @@ pygame.display.set_caption('Tanks')
 
 # Create colours using RGB values
 black = (0, 0, 0)
-green = (0, 255, 0)
+green = (0, 150, 0)
+lightGreen = (0, 255, 0)
 
 # Create fonts
 smallFont = pygame.font.SysFont(None, 25)
@@ -94,14 +95,23 @@ def game_intro():  # Function for game introduction screen
 
         gameDisplay.fill(black)
         message_to_screen("Welcome to Tanks!", green, 0, size="largeFont")
+
+        # Make the buttons responsive
+        cursor = pygame.mouse.get_pos()
+        if 25 + 100 > cursor[0] > 25 and 400 + 50 > cursor[1] > 400:
+            pygame.draw.rect(gameDisplay, lightGreen, (25, 400, 100, 50))
+        else:
+            pygame.draw.rect(gameDisplay, green, (25, 400, 100, 50))
+
         # Buttons
-        pygame.draw.rect(gameDisplay, green, (25, 400, 100, 50))
         pygame.draw.rect(gameDisplay, green, (200, 400, 100, 50))
         pygame.draw.rect(gameDisplay, green, (375, 400, 100, 50))
+
         # Text on the buttons
         text_to_button("Play", black, 25, 400, 100, 50)
         text_to_button("Controls", black, 200, 400, 100, 50)
         text_to_button("Quit", black, 375, 400, 100, 50)
+
         pygame.display.update()
         clock.tick(15)
 
