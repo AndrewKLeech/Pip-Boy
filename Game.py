@@ -14,7 +14,7 @@ display_height = 500
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 # Set the caption of the window to Turret Defense
-pygame.display.set_caption('Turret Defense')
+pygame.display.set_caption('Tanks')
 
 # Create colours using RGB values
 black = (0, 0, 0)
@@ -29,7 +29,7 @@ largeFont = pygame.font.SysFont(None, 75)
 clock = pygame.time.Clock()
 
 
-def text_objects(text, color, size="smallFont"):
+def text_objects(text, color, size="smallFont"): # Function returns text for blitting
     if size == "smallFont":
         textSurface = smallFont.render(text, True, color)
     if size == "mediumFont":
@@ -40,9 +40,9 @@ def text_objects(text, color, size="smallFont"):
     return textSurface, textSurface.get_rect()
 
 
-def message_to_screen(msg, color, y_displace=0, size= "smallFont"):
+def message_to_screen(msg, color, y_displace=0, size= "smallFont"): # Blits the text returned from text_objects
     textSurface, textRect = text_objects(msg, color, size)
-    textRect.center = (int(display_width / 2), int(display_height / 2)+y_displace)
+    textRect.center = (int(display_width / 2), int(display_height / 2) + y_displace)
     gameDisplay.blit(textSurface, textRect)
 
 
@@ -87,7 +87,11 @@ def game_intro():  # Function for game introduction screen
                         quit()
 
         gameDisplay.fill(black)
-        message_to_screen("Welcome to Tanks!", green, -100, size="largeFont")
+        message_to_screen("Welcome to Tanks!", green, 0, size="largeFont")
+        # Buttons
+        pygame.draw.rect(gameDisplay, green, (25, 400, 100, 50))
+        pygame.draw.rect(gameDisplay, green, (200, 400, 100, 50))
+        pygame.draw.rect(gameDisplay, green, (375, 400, 100, 50))
         pygame.display.update()
         clock.tick(15)
 
