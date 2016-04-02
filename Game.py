@@ -123,3 +123,20 @@ def pause():
                         quit()
 
         clock.tick(5)
+
+
+def text_objects(text, color, size="smallFont"):
+    if size == "smallFont":
+        textSurface = smallFont.render(text, True, color)
+    if size == "mediumFont":
+        textSurface = mediumFont.render(text, True, color)
+    if size == "largeFont":
+        textSurface = largeFont.render(text, True, color)
+
+    return textSurface, textSurface.get_rect()
+
+
+def message_to_screen(msg, color, y_displace=0, size= "smallFont"):
+    textSurface, textRect = text_objects(msg, color, size)
+    textRect.center = (int(display_width / 2), int(display_height / 2)+y_displace)
+    gameDisplay.blit(textSurface, textRect)
