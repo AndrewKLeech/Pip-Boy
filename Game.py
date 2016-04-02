@@ -30,7 +30,7 @@ largeFont = pygame.font.SysFont(None, 75)
 clock = pygame.time.Clock()
 
 
-def text_objects(text, color, size="smallFont"): # Function returns text for blitting
+def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
     if size == "smallFont":
         textSurface = smallFont.render(text, True, color)
     if size == "mediumFont":
@@ -41,19 +41,30 @@ def text_objects(text, color, size="smallFont"): # Function returns text for bli
     return textSurface, textSurface.get_rect()
 
 
-def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size="smallFont"):
+def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size="smallFont"):  # Blits text to button
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = ((buttonx + buttonwidth/2), buttony + (buttonheight/2))
     gameDisplay.blit(textSurface, textRect)
 
 
-def message_to_screen(msg, color, y_displace=0, size= "smallFont"): # Blits the text returned from text_objects
+def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the text returned from text_objects
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = (int(display_width / 2), int(display_height / 2) + y_displace)
     gameDisplay.blit(textSurface, textRect)
 
 
-def pause():
+def button(text, x, y, width, height, colour, active_colour):  # Creates the button, both active and inactive
+    cursor = pygame.mouse.get_pos()
+
+    if x + width > cursor[0] > x and y + height > cursor[1] > y:
+        pygame.draw.rect(gameDisplay, active_colour, (x, y, width, height))
+    else:
+        pygame.draw.rect(gameDisplay, colour, (x, y, width, height))
+
+    text_to_button(text, black, x, y, width, height)
+
+
+def pause():  # Pauses the game
     paused = True
     message_to_screen("Paused", green, -100, size="largeFont")
     message_to_screen("Press C to continue playing or Q to quit", green, 25)
@@ -96,21 +107,10 @@ def game_intro():  # Function for game introduction screen
         gameDisplay.fill(black)
         message_to_screen("Welcome to Tanks!", green, 0, size="largeFont")
 
-        # Make the buttons responsive
-        cursor = pygame.mouse.get_pos()
-        if 25 + 100 > cursor[0] > 25 and 400 + 50 > cursor[1] > 400:
-            pygame.draw.rect(gameDisplay, lightGreen, (25, 400, 100, 50))
-        else:
-            pygame.draw.rect(gameDisplay, green, (25, 400, 100, 50))
-
-        # Buttons
-        pygame.draw.rect(gameDisplay, green, (200, 400, 100, 50))
-        pygame.draw.rect(gameDisplay, green, (375, 400, 100, 50))
-
         # Text on the buttons
-        text_to_button("Play", black, 25, 400, 100, 50)
-        text_to_button("Controls", black, 200, 400, 100, 50)
-        text_to_button("Quit", black, 375, 400, 100, 50)
+        button("Play", 25, 400, 100, 50, green, lightGreen)
+        button("Controls", 200, 400, 100, 50, green, lightGreen)
+        button("Quit", 375, 400, 100, 50, green, lightGreen)
 
         pygame.display.update()
         clock.tick(15)
