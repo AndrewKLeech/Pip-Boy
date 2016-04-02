@@ -40,6 +40,12 @@ def text_objects(text, color, size="smallFont"): # Function returns text for bli
     return textSurface, textSurface.get_rect()
 
 
+def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size="smallFont"):
+    textSurface, textRect = text_objects(msg, color, size)
+    textRect.center = ((buttonx + buttonwidth/2), buttony + (buttonheight/2))
+    gameDisplay.blit(textSurface, textRect)
+
+
 def message_to_screen(msg, color, y_displace=0, size= "smallFont"): # Blits the text returned from text_objects
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = (int(display_width / 2), int(display_height / 2) + y_displace)
@@ -92,6 +98,9 @@ def game_intro():  # Function for game introduction screen
         pygame.draw.rect(gameDisplay, green, (25, 400, 100, 50))
         pygame.draw.rect(gameDisplay, green, (200, 400, 100, 50))
         pygame.draw.rect(gameDisplay, green, (375, 400, 100, 50))
+        # Text on the buttons
+        text_to_button("Play", black, 25, 400, 100, 50)
+
         pygame.display.update()
         clock.tick(15)
 
