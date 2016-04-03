@@ -33,8 +33,11 @@ clock = pygame.time.Clock()
 mainTankX = display_width * .8
 mainTankY = display_height * .8
 
+# Tank part dimensions
 tankWidth = 40
 tankHeight = 20
+turretWidth = 5
+wheelWidth = 5
 
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
@@ -65,9 +68,19 @@ def tank(x, y):
     x = int(x)
     y = int(y)
 
+    # Draw the tank
     pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
     pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
-    
+    pygame.draw.line(gameDisplay, green, (x, y), (x - 20, y - 20), turretWidth)
+
+    pygame.draw.circle(gameDisplay, green, (x - 15, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x - 10, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x - 5, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 0, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 5, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 10, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 15, y + 20), wheelWidth)
+
 
 def game_controls():  # Function for controls screen
 
