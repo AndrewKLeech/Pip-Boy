@@ -29,10 +29,6 @@ largeFont = pygame.font.SysFont(None, 75)
 # Initialise the clock for FPS
 clock = pygame.time.Clock()
 
-# Tank positioning
-mainTankX = display_width * .8
-mainTankY = display_height * .8
-
 # Tank part dimensions
 tankWidth = 40
 tankHeight = 20
@@ -186,6 +182,11 @@ def gameLoop():
     gameOver = False
     FPS = 15
 
+    # Tank positioning
+    mainTankX = display_width * .8
+    mainTankY = display_height * .8
+    tankMove = 0
+
     while not gameExit:
 
         if gameOver == True:
@@ -211,10 +212,10 @@ def gameLoop():
             # Pass acts as a place holder until buttons are used
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    pass
+                    tankMove = -5
 
                 elif event.key == pygame.K_RIGHT:
-                    pass
+                    tankMove = 5
 
                 elif event.key == pygame.K_UP:
                     pass
@@ -227,6 +228,7 @@ def gameLoop():
 
         # Draw the game screen
         gameDisplay.fill(black)
+        mainTankX += tankMove
         tank(mainTankX, mainTankY)
         pygame.display.update()
         clock.tick(FPS)
