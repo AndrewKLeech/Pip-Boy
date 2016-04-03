@@ -59,7 +59,7 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
     gameDisplay.blit(textSurface, textRect)
 
 
-def tank(x, y, turretPosition):
+def tank(x, y, turretPosition):  # Draws the tank and turret
     # Casting x and y to be ints
     x = int(x)
     y = int(y)
@@ -141,9 +141,9 @@ def button(text, x, y, width, height, colour, active_colour, action):  # Creates
 
 def pause():  # Pauses the game
     paused = True
-    message_to_screen("Paused", green, -100, size="largeFont")
-    message_to_screen("C to continue playing", green, 50, size="smallFont")
-    message_to_screen("Q to quit", green, 75, size="smallFont")
+    message_to_screen("Paused", green, -225, size="largeFont")
+    message_to_screen("C to continue playing", green, -175, size="smallFont")
+    message_to_screen("Q to quit", green, -150, size="smallFont")
     pygame.display.update()
     while paused:
         for event in pygame.event.get():
@@ -184,7 +184,7 @@ def game_intro():  # Function for game introduction screen
         clock.tick(15)
 
 
-def gameLoop():
+def gameLoop():  # Main game loop
     gameExit = False
     gameOver = False
     FPS = 15
