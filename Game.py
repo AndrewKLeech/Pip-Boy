@@ -53,6 +53,32 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
     gameDisplay.blit(textSurface, textRect)
 
 
+def game_controls():  # Function for controls screen
+
+    controls = True
+
+    while controls:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+        gameDisplay.fill(black)
+        message_to_screen("Controls!", green, -100, size="largeFont")
+        message_to_screen("Controls!", green, 10, size="mediumFont")
+        message_to_screen("Controls!", green, 40, size="mediumFont")
+        message_to_screen("Controls!", green, 70, size="mediumFont")
+        message_to_screen("P to pause the game!", green, 100, size="mediumFont")
+
+        # Text on the buttons
+        button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
+        button("Controls", 200, 400, 100, 50, green, lightGreen, action="controls")
+        button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
+
+        pygame.display.update()
+        clock.tick(15)
+
+
 def button(text, x, y, width, height, colour, active_colour, action):  # Creates the button, both active and inactive
     cursor = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -64,7 +90,7 @@ def button(text, x, y, width, height, colour, active_colour, action):  # Creates
                 gameLoop()
 
             if action == "controls":
-                pass
+                game_controls()
 
             if action == "quit":
                 pygame.quit()
