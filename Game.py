@@ -33,6 +33,9 @@ clock = pygame.time.Clock()
 mainTankX = display_width * .8
 mainTankY = display_height * .8
 
+tankWidth = 40
+tankHeight = 20
+
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
     if size == "smallFont":
@@ -58,8 +61,13 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
 
 
 def tank(x, y):
-    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 20)
+    # Casting x and y to be ints
+    x = int(x)
+    y = int(y)
 
+    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
+    pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
+    
 
 def game_controls():  # Function for controls screen
 
