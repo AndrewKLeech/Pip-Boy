@@ -235,7 +235,14 @@ def gameLoop():
         # Draw the game screen
         gameDisplay.fill(black)
         mainTankX += tankMove
+
+        # Turret positioning
         curTurretPosition += changeTurretPosition
+        if curTurretPosition > 8:
+            curTurretPosition = 8
+        elif curTurretPosition < 0:
+            curTurretPosition = 0
+
         tank(mainTankX, mainTankY, curTurretPosition)
         pygame.display.update()
         clock.tick(FPS)
