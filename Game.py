@@ -59,7 +59,7 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
     gameDisplay.blit(textSurface, textRect)
 
 
-def tank(x, y):
+def tank(x, y, turretPosition):
     # Casting x and y to be ints
     x = int(x)
     y = int(y)
@@ -78,7 +78,7 @@ def tank(x, y):
     # Draw the tank
     pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
     pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
-    pygame.draw.line(gameDisplay, green, (x, y), turrets[0], turretWidth)
+    pygame.draw.line(gameDisplay, green, (x, y), turrets[turretPosition], turretWidth)
 
     pygame.draw.circle(gameDisplay, green, (x - 15, y + 20), wheelWidth)
     pygame.draw.circle(gameDisplay, green, (x - 10, y + 20), wheelWidth)
@@ -197,6 +197,8 @@ def gameLoop():
     mainTankX = display_width * .8
     mainTankY = display_height * .8
     tankMove = 0
+    curTurretPosition = 0
+    changeTurretPosition = 0
 
     while not gameExit:
 
@@ -229,10 +231,10 @@ def gameLoop():
                     tankMove = 5
 
                 elif event.key == pygame.K_UP:
-                    pass
+                    changeTurretPosition = 1
 
                 elif event.key == pygame.K_DOWN:
-                    pass
+                    changeTurretPosition = -1
 
                 elif event.key == pygame.K_p:
                     pause()
@@ -242,10 +244,14 @@ def gameLoop():
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     tankMove = 0
 
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    changeTurretPosition = 0
+
         # Draw the game screen
         gameDisplay.fill(black)
         mainTankX += tankMove
-        tank(mainTankX, mainTankY)
+        curTurretPosition += changeTurretPosition
+        tank(mainTankX, mainTankY, curTurretPosition)
         pygame.display.update()
         clock.tick(FPS)
 
