@@ -1,7 +1,7 @@
 # Game for Pip-Boy
 # Imports
 import pygame
-import time
+import random
 
 # Initialise PyGame
 pygame.init()
@@ -89,8 +89,11 @@ def tank(x, y, turretPosition):
     pygame.draw.circle(gameDisplay, green, (x + 15, y + 20), wheelWidth)
 
 
-def game_controls():  # Function for controls screen
+def barrier(xLocation, yLocation):  # Draw the barrier
+    pygame.draw.rect(gameDisplay, green, [xLocation, display_height - yLocation, 50, yLocation])
 
+
+def game_controls():  # Function for controls screen
     controls = True
 
     while controls:
@@ -193,6 +196,10 @@ def gameLoop():
     curTurretPosition = 0
     changeTurretPosition = 0
 
+    # Barrier positioning
+    xLocation = (display_width/2) + random.randint(-.1 * display_width, .1 * display_width)
+    yLocation = random.randrange(display_height * .2, display_height * .5)
+
     while not gameExit:
 
         if gameOver == True:
@@ -235,6 +242,9 @@ def gameLoop():
         # Draw the game screen
         gameDisplay.fill(black)
         mainTankX += tankMove
+
+        # Draw the barrier
+        barrier(xLocation, yLocation)
 
         # Turret positioning
         curTurretPosition += changeTurretPosition
