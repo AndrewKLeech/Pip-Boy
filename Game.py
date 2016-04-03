@@ -90,7 +90,7 @@ def game_controls():  # Function for controls screen
 
         gameDisplay.fill(black)
         message_to_screen("Controls!", green, -100, size="largeFont")
-        message_to_screen("Controls!", green, 10, size="smallFont")
+        message_to_screen("Left and right arrow keys to move the tank!", green, 10, size="smallFont")
         message_to_screen("Controls!", green, 40, size="smallFont")
         message_to_screen("Controls!", green, 70, size="smallFont")
         message_to_screen("P to pause the game!", green, 100, size="smallFont")
