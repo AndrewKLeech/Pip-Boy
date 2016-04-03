@@ -89,8 +89,8 @@ def tank(x, y, turretPosition):
     pygame.draw.circle(gameDisplay, green, (x + 15, y + 20), wheelWidth)
 
 
-def barrier(xLocation, yLocation):  # Draw the barrier
-    pygame.draw.rect(gameDisplay, green, [xLocation, display_height - yLocation, 50, yLocation])
+def barrier(xLocation, yLocation, barrierWidth):  # Draw the barrier
+    pygame.draw.rect(gameDisplay, green, [xLocation, .855 * display_height - yLocation, barrierWidth, yLocation])
 
 
 def game_controls():  # Function for controls screen
@@ -197,8 +197,9 @@ def gameLoop():
     changeTurretPosition = 0
 
     # Barrier positioning
+    barrierWidth = 50
     xLocation = (display_width/2) + random.randint(-.1 * display_width, .1 * display_width)
-    yLocation = random.randrange(display_height * .2, display_height * .5)
+    yLocation = random.randrange(100, 150)
 
     while not gameExit:
 
@@ -241,10 +242,11 @@ def gameLoop():
 
         # Draw the game screen
         gameDisplay.fill(black)
+        pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
         mainTankX += tankMove
 
         # Draw the barrier
-        barrier(xLocation, yLocation)
+        barrier(xLocation, yLocation, barrierWidth)
 
         # Turret positioning
         curTurretPosition += changeTurretPosition
