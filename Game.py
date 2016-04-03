@@ -64,10 +64,21 @@ def tank(x, y):
     x = int(x)
     y = int(y)
 
+    # Set possible turret positions
+    turrets = [(x - 27, y - 2),
+               (x - 26, y - 5),
+               (x - 25, y - 8),
+               (x - 23, y - 12),
+               (x - 20, y - 14),
+               (x - 18, y - 15),
+               (x - 15, y - 17),
+               (x - 13, y - 19),
+               (x - 11, y - 21)]
+
     # Draw the tank
     pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
     pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
-    pygame.draw.line(gameDisplay, green, (x, y), (x - 20, y - 20), turretWidth)
+    pygame.draw.line(gameDisplay, green, (x, y), turrets[0], turretWidth)
 
     pygame.draw.circle(gameDisplay, green, (x - 15, y + 20), wheelWidth)
     pygame.draw.circle(gameDisplay, green, (x - 10, y + 20), wheelWidth)
