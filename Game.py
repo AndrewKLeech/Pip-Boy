@@ -255,6 +255,10 @@ def gameLoop():
         elif curTurretPosition < 0:
             curTurretPosition = 0
 
+        # Avoid tank and barrier collision
+        if (mainTankX - tankWidth/2) < xLocation + barrierWidth:
+            mainTankX += 5
+
         tank(mainTankX, mainTankY, curTurretPosition)
         pygame.display.update()
         clock.tick(FPS)
