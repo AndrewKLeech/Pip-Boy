@@ -29,6 +29,10 @@ largeFont = pygame.font.SysFont(None, 75)
 # Initialise the clock for FPS
 clock = pygame.time.Clock()
 
+# Tank positioning
+mainTankX = display_width * .8
+mainTankY = display_height * .8
+
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
     if size == "smallFont":
@@ -53,6 +57,10 @@ def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the
     gameDisplay.blit(textSurface, textRect)
 
 
+def tank(x, y):
+    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 20)
+
+
 def game_controls():  # Function for controls screen
 
     controls = True
@@ -65,14 +73,13 @@ def game_controls():  # Function for controls screen
 
         gameDisplay.fill(black)
         message_to_screen("Controls!", green, -100, size="largeFont")
-        message_to_screen("Controls!", green, 10, size="mediumFont")
-        message_to_screen("Controls!", green, 40, size="mediumFont")
-        message_to_screen("Controls!", green, 70, size="mediumFont")
-        message_to_screen("P to pause the game!", green, 100, size="mediumFont")
+        message_to_screen("Controls!", green, 10, size="smallFont")
+        message_to_screen("Controls!", green, 40, size="smallFont")
+        message_to_screen("Controls!", green, 70, size="smallFont")
+        message_to_screen("P to pause the game!", green, 100, size="smallFont")
 
         # Text on the buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
-        button("Controls", 200, 400, 100, 50, green, lightGreen, action="controls")
         button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
 
         pygame.display.update()
@@ -142,7 +149,7 @@ def game_intro():  # Function for game introduction screen
                         quit()
 
         gameDisplay.fill(black)
-        message_to_screen("Welcome to Tanks!", green, 0, size="largeFont")
+        message_to_screen("Tanks!", green, 0, size="largeFont")
 
         # Text on the buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
@@ -197,7 +204,9 @@ def gameLoop():
                 elif event.key == pygame.K_p:
                     pause()
 
+        # Draw the game screen
         gameDisplay.fill(black)
+        tank(mainTankX, mainTankY)
         pygame.display.update()
         clock.tick(FPS)
 
