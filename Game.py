@@ -102,11 +102,11 @@ def game_controls():  # Function for controls screen
         gameDisplay.fill(black)
         message_to_screen("Controls!", green, -100, size="largeFont")
         message_to_screen("Left and right arrow keys to move the tank!", green, 10, size="smallFont")
-        message_to_screen("Controls!", green, 40, size="smallFont")
+        message_to_screen("Up and down arrow keys to move the tank's turret!", green, 40, size="smallFont")
         message_to_screen("Controls!", green, 70, size="smallFont")
         message_to_screen("P to pause the game!", green, 100, size="smallFont")
 
-        # Text on the buttons
+        # Buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
         button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
 
@@ -139,7 +139,8 @@ def button(text, x, y, width, height, colour, active_colour, action):  # Creates
 def pause():  # Pauses the game
     paused = True
     message_to_screen("Paused", green, -100, size="largeFont")
-    message_to_screen("Press C to continue playing or Q to quit", green, 25)
+    message_to_screen("C to continue playing", green, 50, size="smallFont")
+    message_to_screen("Q to quit", green, 75, size="smallFont")
     pygame.display.update()
     while paused:
         for event in pygame.event.get():
@@ -167,14 +168,6 @@ def game_intro():  # Function for game introduction screen
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_c:
-                        intro = False
-
-                    elif event.key == pygame.K_q:
-                        pygame.quit()
-                        quit()
 
         gameDisplay.fill(black)
         message_to_screen("Tanks!", green, 0, size="largeFont")
@@ -209,14 +202,6 @@ def gameLoop():
                     if event.type == pygame.QUIT:
                         gameExit = True
                         gameOver = False
-
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_c:
-                            gameLoop()
-
-                        elif event.key == pygame.K_q:
-                            gameExit = True
-                            gameOver = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
