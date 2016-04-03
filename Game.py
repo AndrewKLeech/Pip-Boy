@@ -209,7 +209,7 @@ def gameLoop():
             if event.type == pygame.QUIT:
                 gameExit = True
 
-            # Pass acts as a place holder until buttons are used
+            # Movement for tank
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     tankMove = -5
@@ -225,6 +225,11 @@ def gameLoop():
 
                 elif event.key == pygame.K_p:
                     pause()
+
+            # If user stops pressing the button, stop moving the tank
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    tankMove = 0
 
         # Draw the game screen
         gameDisplay.fill(black)
