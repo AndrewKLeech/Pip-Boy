@@ -13,20 +13,20 @@ import webbrowser
 PIP_FONT = ("Verdana", 12)
 photo = "mrPip.gif"
 
-uri_ID = 'spotify:artist:1Xylc3o4UrD53lo9CvFvVg'
-
-spotify = spotipy.Spotify()
-results = spotify.artist_top_tracks(uri_ID)
-
-#getting the track and audio link to top song
-for track in results['tracks'][:1]:
-   text = 'Track    : ' + track['name']
-   text2 = track['preview_url']
-
-
 def callback(event):
-    webbrowser.open_new(text2)
+     webbrowser.open_new(event)
 
+def music(uri):
+
+    spotify = spotipy.Spotify()
+    results = spotify.artist_top_tracks(uri)
+
+    #getting the track and audio link to top song
+    for track in results['tracks'][:1]:
+       text = 'Track    : ' + track['name']
+       text2 = track['preview_url']
+
+    return text2
 
 class SetUp(tk.Tk):  #inheriting
     def __init__(self, *args, **kwargs):  #method, initialisng
@@ -93,7 +93,6 @@ class StartPage(tk.Frame):
 
 
 class RadioPage(tk.Frame):
-
     def __init__(self, parent, controller):
 
         tk.Frame.__init__(self, parent)
@@ -119,17 +118,16 @@ class RadioPage(tk.Frame):
                           command = lambda: controller.show_frame(StatsPage))
         stats.place(x = 335, y = 0)
 
-        var = tk.StringVar()
-        var.set(text)
+        text2 = music("spotify:artist:1Xylc3o4UrD53lo9CvFvVg")
 
         var2 = tk.StringVar()
         var2.set(text2)
 
-        label = tk.Label(self, textvariable = var, bg = "black", fg = "white")
+        label = tk.Label(self, text = "Lush Life", bg = "black", fg = "white")
         label.pack(side = BOTTOM)
 
         label2 = tk.Button(self, text = "Play", bg = "black", fg = "white", cursor = "hand2")
-        label2.bind("<Button-1>", callback)
+        label2.bind("<Button-1>", callback(text2))
         label2.pack(side = BOTTOM)
 
 
@@ -267,8 +265,6 @@ class StatsPage(tk.Frame):
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
         canvas.get_tk_widget().pack(side = BOTTOM)
-
-
 
 app = SetUp()
 app.mainloop()
