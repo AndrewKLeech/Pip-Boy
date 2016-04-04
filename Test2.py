@@ -18,7 +18,7 @@ uri_ID = 'spotify:artist:1Xylc3o4UrD53lo9CvFvVg'
 spotify = spotipy.Spotify()
 results = spotify.artist_top_tracks(uri_ID)
 
-#getting the track and audio link to top song,`
+#getting the track and audio link to top song
 for track in results['tracks'][:1]:
    text = 'Track    : ' + track['name']
    text2 = track['preview_url']
@@ -28,9 +28,7 @@ def callback(event):
     webbrowser.open_new(text2)
 
 
-
 class SetUp(tk.Tk):  #inheriting
-
     def __init__(self, *args, **kwargs):  #method, initialisng
 
         tk.Tk.__init__(self, *args, **kwargs)
@@ -89,6 +87,10 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
         label.pack(side = BOTTOM)
 
+        #to make width for now
+        label = tk.Label(self, width = 60, bg = "black")
+        label.pack(side = BOTTOM)
+
 
 class RadioPage(tk.Frame):
 
@@ -117,18 +119,6 @@ class RadioPage(tk.Frame):
                           command = lambda: controller.show_frame(StatsPage))
         stats.place(x = 335, y = 0)
 
-        chemicalB = tk.Button(self, text = "The Chemical Brothers", bg = "black", fg = "green")
-        chemicalB.pack()
-
-        beyonceB = tk.Button(self, text = "Beyoncè", bg = "black", fg = "green")
-        beyonceB.pack(side = BOTTOM)
-
-        daftB = tk.Button(self, text = "Daft Punk", bg = "black", fg = "green")
-        daftB.pack(side = BOTTOM)
-
-        vampireB = tk.Button(self, text = "Vampire Weekend", bg = "black", fg = "green")
-        vampireB.pack(side = BOTTOM)
-
         var = tk.StringVar()
         var.set(text)
 
@@ -138,7 +128,7 @@ class RadioPage(tk.Frame):
         label = tk.Label(self, textvariable = var, bg = "black", fg = "white")
         label.pack(side = BOTTOM)
 
-        label2 = tk.Label(self, textvariable = var2, bg = "black", fg = "white", cursor = "hand2")
+        label2 = tk.Button(self, text = "Play", bg = "black", fg = "white", cursor = "hand2")
         label2.bind("<Button-1>", callback)
         label2.pack(side = BOTTOM)
 
@@ -277,6 +267,8 @@ class StatsPage(tk.Frame):
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
         canvas.get_tk_widget().pack(side = BOTTOM)
+
+
 
 app = SetUp()
 app.mainloop()
