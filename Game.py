@@ -95,12 +95,20 @@ def barrier(xLocation, yLocation, barrierWidth):  # Draw the barrier (random x a
     pygame.draw.rect(gameDisplay, green, [xLocation, .855 * display_height - yLocation, barrierWidth, yLocation])
 
 
-def fire(pos):
+def fire(pos, tanxX, tankY, turretPos):
     fire = True
-    startingPos = pos
+    startingPos = list(pos)
 
     while fire:
-        fire = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
+        startingPos[0] -= 5
+
+        pygame.display.update()
+        clock.tick(5)
 
 
 def game_controls():  # Function for controls screen
@@ -246,7 +254,7 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    fire(bullet)
+                    fire(bullet, mainTankX, mainTankY, curTurretPosition)
 
             # If user stops pressing the button, stop moving the tank
             elif event.type == pygame.KEYUP:
