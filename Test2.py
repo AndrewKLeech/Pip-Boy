@@ -5,6 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 import tkinter as tk
 import tkinter as ttk
+from tkinter import *
 import spotipy
 import sys
 import webbrowser
@@ -17,7 +18,7 @@ uri_ID = 'spotify:artist:1Xylc3o4UrD53lo9CvFvVg'
 spotify = spotipy.Spotify()
 results = spotify.artist_top_tracks(uri_ID)
 
-#getting the track and audio link to top zara larrson song
+#getting the track and audio link to top song,`
 for track in results['tracks'][:1]:
    text = 'Track    : ' + track['name']
    text2 = track['preview_url']
@@ -25,6 +26,7 @@ for track in results['tracks'][:1]:
 
 def callback(event):
     webbrowser.open_new(text2)
+
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -66,26 +68,26 @@ class StartPage(tk.Frame):
 
         radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(RadioPage))
-        radio.grid(row = 0, column=1)
+        radio.place(x = 15, y = 0)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(MapPage))
-        map.grid(row =0, column=2)
+        map.place(x = 95, y = 0)
 
         data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(DataPage))
-        data.grid(row = 0, column=3)
+        data.place(x = 175, y = 0)
 
         inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(InvPage))
-        inv.grid(row = 0, column=4)
+        inv.place(x = 255, y = 0)
 
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(StatsPage))
-        stats.grid(row = 0, column=5)
+        stats.place(x = 335, y = 0)
 
         label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
-        label.grid(column = 1)
+        label.pack(side = BOTTOM)
 
 
 class RadioPage(tk.Frame):
@@ -95,24 +97,37 @@ class RadioPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         tk.Frame.configure(self, bg = "black")
 
-        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10)
-        radio.grid(row = 0, column=1)
+        radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(RadioPage))
+        radio.place(x = 15, y = 0)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(MapPage))
-        map.grid(row =0, column=2)
+        map.place(x = 95, y = 0)
 
         data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(DataPage))
-        data.grid(row = 0, column=3)
+        data.place(x = 175, y = 0)
 
         inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(InvPage))
-        inv.grid(row = 0, column=4)
+        inv.place(x = 255, y = 0)
 
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(StatsPage))
-        stats.grid(row = 0, column=5)
+        stats.place(x = 335, y = 0)
+
+        chemicalB = tk.Button(self, text = "The Chemical Brothers", bg = "black", fg = "green")
+        chemicalB.pack()
+
+        beyonceB = tk.Button(self, text = "Beyoncè", bg = "black", fg = "green")
+        beyonceB.pack(side = BOTTOM)
+
+        daftB = tk.Button(self, text = "Daft Punk", bg = "black", fg = "green")
+        daftB.pack(side = BOTTOM)
+
+        vampireB = tk.Button(self, text = "Vampire Weekend", bg = "black", fg = "green")
+        vampireB.pack(side = BOTTOM)
 
         var = tk.StringVar()
         var.set(text)
@@ -121,11 +136,11 @@ class RadioPage(tk.Frame):
         var2.set(text2)
 
         label = tk.Label(self, textvariable = var, bg = "black", fg = "white")
-        label.grid(row = 1, column = 1, sticky = "w")
+        label.pack(side = BOTTOM)
 
         label2 = tk.Label(self, textvariable = var2, bg = "black", fg = "white", cursor = "hand2")
         label2.bind("<Button-1>", callback)
-        label2.grid(row = 2, column = 1, sticky = "w", columnspan = 6)
+        label2.pack(side = BOTTOM)
 
 
 
@@ -137,25 +152,26 @@ class MapPage(tk.Frame):
 
         radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(RadioPage))
-        radio.grid(row = 0, column=1)
+        radio.place(x = 15, y = 0)
 
-        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10)
-        map.grid(row =0, column=2)
+        map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(MapPage))
+        map.place(x = 95, y = 0)
 
         data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(DataPage))
-        data.grid(row = 0, column=3)
+        data.place(x = 175, y = 0)
 
         inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(InvPage))
-        inv.grid(row = 0, column=4)
+        inv.place(x = 255, y = 0)
 
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(StatsPage))
-        stats.grid(row = 0, column=5)
+        stats.place(x = 335, y = 0)
 
         label = tk.Label(self, text = "map functionality", bg = "black", fg = "white")
-        label.grid(row = 1, column = 1)
+        label.pack(side = BOTTOM)
 
 
 class DataPage(tk.Frame):
@@ -166,25 +182,26 @@ class DataPage(tk.Frame):
 
         radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(RadioPage))
-        radio.grid(row = 0, column=1)
+        radio.place(x = 15, y = 0)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(MapPage))
-        map.grid(row =0, column=2)
+        map.place(x = 95, y = 0)
 
-        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10)
-        data.grid(row = 0, column=3)
+        data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
+                         command = lambda: controller.show_frame(DataPage))
+        data.place(x = 175, y = 0)
 
         inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(InvPage))
-        inv.grid(row = 0, column=4)
+        inv.place(x = 255, y = 0)
 
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(StatsPage))
-        stats.grid(row = 0, column=5)
+        stats.place(x = 335, y = 0)
 
         label = tk.Label(self, text = "data functionality", bg = "black", fg = "white")
-        label.grid(row = 1, column = 1)
+        label.pack(side = BOTTOM)
 
 
 class InvPage(tk.Frame):
@@ -195,25 +212,26 @@ class InvPage(tk.Frame):
 
         radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(RadioPage))
-        radio.grid(row = 0, column=1)
+        radio.place(x = 15, y = 0)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(MapPage))
-        map.grid(row =0, column=2)
+        map.place(x = 95, y = 0)
 
         data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(DataPage))
-        data.grid(row = 0, column=3)
+        data.place(x = 175, y = 0)
 
-        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10)
-        inv.grid(row = 0, column=4)
+        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
+                        command = lambda: controller.show_frame(InvPage))
+        inv.place(x = 255, y = 0)
 
         stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(StatsPage))
-        stats.grid(row = 0, column=5)
+        stats.place(x = 335, y = 0)
 
         label = tk.Label(self, text = "inv functionality", bg = "black", fg = "white")
-        label.grid(row = 1, column = 1)
+        label.pack(side = BOTTOM)
 
 
 class StatsPage(tk.Frame):
@@ -224,22 +242,23 @@ class StatsPage(tk.Frame):
 
         radio = tk.Button(self, text ="RADIO", bg="black", fg="green", width = 10,
                           command = lambda: controller.show_frame(RadioPage))
-        radio.grid(row = 0, column=1)
+        radio.place(x = 15, y = 0)
 
         map = tk.Button(self, text ="MAP", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(MapPage))
-        map.grid(row =0, column=2)
+        map.place(x = 95, y = 0)
 
         data = tk.Button(self, text="DATA", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(DataPage))
-        data.grid(row = 0, column=3)
+        data.place(x = 175, y = 0)
 
         inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
                         command = lambda: controller.show_frame(InvPage))
-        inv.grid(row = 0, column=4)
+        inv.place(x = 255, y = 0)
 
-        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10)
-        stats.grid(row = 0, column=5)
+        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
+                          command = lambda: controller.show_frame(StatsPage))
+        stats.place(x = 335, y = 0)
 
         f = Figure(figsize = (7,5), dpi = 50)
         a = f.add_subplot(111) #onexone chart number 1
@@ -257,7 +276,7 @@ class StatsPage(tk.Frame):
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
-        canvas.get_tk_widget().grid(row = 2, column = 0, sticky = "w", columnspan = 6)
+        canvas.get_tk_widget().pack(side = BOTTOM)
 
 app = SetUp()
 app.mainloop()
