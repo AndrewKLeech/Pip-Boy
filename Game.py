@@ -105,7 +105,12 @@ def fire(pos, tanxX, tankY, turretPos):
                 pygame.quit()
 
         pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
-        startingPos[0] -= 5
+        startingPos[0] -= (10 - turretPos)*2
+
+        startingPos[1] += int(((startingPos[0] - pos[0]) * .01)**2)
+
+        if startingPos[1] > display_height:
+            fire = False
 
         pygame.display.update()
         clock.tick(5)
