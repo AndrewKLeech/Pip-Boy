@@ -95,7 +95,7 @@ def barrier(xLocation, yLocation, barrierWidth):  # Draw the barrier (random x a
     pygame.draw.rect(gameDisplay, green, [xLocation, .855 * display_height - yLocation, barrierWidth, yLocation])
 
 
-def fire(pos, tanxX, tankY, turretPos):
+def fire(pos, tanxX, tankY, turretPos):  # Function for shooting and controlling bullet physics
     fire = True
     startingPos = list(pos)
 
@@ -107,7 +107,7 @@ def fire(pos, tanxX, tankY, turretPos):
         pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
         startingPos[0] -= (10 - turretPos)*2
 
-        startingPos[1] += int(((startingPos[0] - pos[0]) * .01)**2)
+        startingPos[1] += int((((startingPos[0] - pos[0]) * .01)**2) - (turretPos + turretPos / (12 -  turretPos)))
 
         if startingPos[1] > display_height:
             fire = False
