@@ -95,6 +95,30 @@ def barrier(xLocation, yLocation, barrierWidth):  # Draw the barrier (random x a
     pygame.draw.rect(gameDisplay, green, [xLocation, .855 * display_height - yLocation, barrierWidth, yLocation])
 
 
+def explosion(x, y):
+    explode = True
+
+    while explode:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        start = x, y
+
+        magnitude = 1
+
+        while magnitude < 50:
+            explodeBitX = x + random.randrange(-1 * magnitude, magnitude)
+            explodeBitY = y + random.randrange(-1 * magnitude, magnitude)
+
+            pygame.draw.circle(gameDisplay, green, (explodeBitX, explodeBitY), random.randrange(1, 5))
+            magnitude += 1
+
+            pygame.display.update()
+            clock.tick(100)
+
+        explode = False
+
 def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
     fire = True
     startingPos = list(pos)
@@ -104,16 +128,21 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        pygame.draw.circle(gameDisplay, gBreen, (startingPos[0], startingPos[1]), 5)
+        pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
         startingPos[0] -= (10 - turretPos)*2
 
         startingPos[1] += int((((startingPos[0] - pos[0]) * .01/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
         if startingPos[1] > display_height:
+
+            hitX = int((startingPos[0] * display_height) / startingPos[1])
+            hitY = int(display_height)
+            explosion(hitX, hitY)
+
             fire = False
 
         pygame.display.update()
-        clock.tick(5)
+        clock.tick(100)
 
 
 def power(level):
