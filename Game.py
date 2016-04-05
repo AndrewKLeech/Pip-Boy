@@ -116,6 +116,11 @@ def fire(pos, tanxX, tankY, turretPos):  # Function for shooting and controlling
         clock.tick(5)
 
 
+def power(level):
+    text = smallFont.render("Power: " + str(level) + "%", True, green)
+    gameDisplay.blit(text, [display_width * .8, 0])
+
+
 def game_controls():  # Function for controls screen
     controls = True
 
@@ -219,6 +224,10 @@ def gameLoop():  # Main game loop
     curTurretPosition = 0
     changeTurretPosition = 0
 
+    # Fire power
+    firePower = 50
+    change = 0
+
     # Barrier positioning
     barrierWidth = 50
     xLocation = (display_width/2) + random.randint(-.1 * display_width, .1 * display_width)
@@ -261,6 +270,12 @@ def gameLoop():  # Main game loop
                 elif event.key == pygame.K_SPACE:
                     fire(bullet, mainTankX, mainTankY, curTurretPosition)
 
+                elif event.key == pygame.K_a:
+                    change = -1
+
+                elif event.key == pygame.K_d:
+                    change = 1
+
             # If user stops pressing the button, stop moving the tank
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -272,6 +287,10 @@ def gameLoop():  # Main game loop
         # Draw the game screen
         pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
         mainTankX += tankMove
+
+        # Change power of the bullet
+        firePower += change
+        power(firePower)
 
         # Draw the barrier
         barrier(xLocation, yLocation, barrierWidth)
