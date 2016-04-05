@@ -284,6 +284,9 @@ def gameLoop():  # Main game loop
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     changeTurretPosition = 0
 
+                if event.key == pygame.K_a or event.key == pygame.K_d:
+                    change = 0
+
         # Draw the game screen
         pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
         mainTankX += tankMove
