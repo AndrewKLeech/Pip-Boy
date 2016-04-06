@@ -91,10 +91,6 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     return turrets[turretPosition]
 
 
-def barrier(xLocation, yLocation, barrierWidth):  # Draw the barrier (random x and y locations)
-    pygame.draw.rect(gameDisplay, green, [xLocation, .855 * display_height - yLocation, barrierWidth, yLocation])
-
-
 def explosion(x, y):
     explode = True
 
@@ -102,8 +98,6 @@ def explosion(x, y):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
-        start = x, y
 
         magnitude = 1
 
@@ -134,10 +128,10 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
 
         startingPos[1] += int((((startingPos[0] - pos[0]) * .01/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
-        if startingPos[1] > .855 * display_height:
+        if startingPos[1] > .845 * display_height:
 
-            hitX = int((startingPos[0] * display_height) / startingPos[1])
-            hitY = int(.855 * display_height)
+            hitX = int((startingPos[0]))
+            hitY = int(startingPos[1])
             explosion(hitX, hitY)
 
             fire = False
@@ -258,16 +252,7 @@ def gameLoop():  # Main game loop
     firePower = 50
     change = 0
 
-    # Barrier positioning
-    barrierWidth = 50
-    xLocation = (display_width/2) + random.randint(-.1 * display_width, .1 * display_width)
-    yLocation = random.randrange(100, 150)
-
     while not gameExit:
-
-        gameDisplay.fill(black)
-        bullet = tank(mainTankX, mainTankY, curTurretPosition)
-
         if gameOver == True:
             pygame.display.update()
             while gameOver == True:
@@ -318,15 +303,14 @@ def gameLoop():  # Main game loop
                     change = 0
 
         # Draw the game screen
-        pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
         mainTankX += tankMove
+        gameDisplay.fill(black)
+        bullet = tank(mainTankX, mainTankY, curTurretPosition)
+        pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
 
         # Change power of the bullet
         firePower += change
         power(firePower)
-
-        # Draw the barrier
-        barrier(xLocation, yLocation, barrierWidth)
 
         # Turret positioning
         curTurretPosition += changeTurretPosition
@@ -335,9 +319,9 @@ def gameLoop():  # Main game loop
         elif curTurretPosition < 0:
             curTurretPosition = 0
 
-        # Avoid tank and barrier collision
-        if (mainTankX - tankWidth/2) < xLocation + barrierWidth:
-            mainTankX += 5
+        # Avoid tank and walls collision
+        if mainTankX > display_width:
+            mainTankX -= 5
 
         pygame.display.update()
         clock.tick(FPS)
