@@ -40,6 +40,7 @@ ground = .85 * display_height
 
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
+
     if size == "smallFont":
         textSurface = smallFont.render(text, True, color)
     if size == "mediumFont":
@@ -51,18 +52,21 @@ def text_objects(text, color, size="smallFont"):  # Function returns text for bl
 
 
 def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size="smallFont"):  # Blits text to button
+
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = ((buttonx + buttonwidth/2), buttony + (buttonheight/2))
     gameDisplay.blit(textSurface, textRect)
 
 
 def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the text returned from text_objects
+
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = (int(display_width / 2), int(display_height / 2) + y_displace)
     gameDisplay.blit(textSurface, textRect)
 
 
 def tank(x, y, turretPosition):  # Draws the tank and turret
+
     # Casting x and y to be ints
     x = int(x)
     y = int(y)
@@ -95,6 +99,7 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
 
 
 def explosion(x, y):
+
     explode = True
 
     while explode:
@@ -118,7 +123,9 @@ def explosion(x, y):
 
 
 def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
+
     fire = True
+
     startingPos = list(pos)
 
     while fire:
@@ -145,11 +152,13 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
 
 
 def power(level):
+
     text = smallFont.render("Power: " + str(level) + "%", True, green)
-    gameDisplay.blit(text, [display_width * .8, 0])
+    gameDisplay.blit(text, [display_width * .75, 10])
 
 
 def game_controls():  # Function for controls screen
+
     controls = True
 
     while controls:
@@ -174,6 +183,7 @@ def game_controls():  # Function for controls screen
 
 
 def button(text, x, y, width, height, colour, active_colour, action):  # Creates the button, both active and inactive
+
     cursor = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 
@@ -196,7 +206,9 @@ def button(text, x, y, width, height, colour, active_colour, action):  # Creates
 
 
 def pause():  # Pauses the game
+
     paused = True
+
     message_to_screen("Paused", green, -225, size="largeFont")
     message_to_screen("C to continue playing", green, -175, size="smallFont")
     message_to_screen("Q to quit", green, -150, size="smallFont")
@@ -241,8 +253,10 @@ def game_intro():  # Function for game introduction screen
 
 
 def gameLoop():  # Main game loop
+
     gameExit = False
     gameOver = False
+
     FPS = 15
 
     # Tank positioning
@@ -314,6 +328,13 @@ def gameLoop():  # Main game loop
 
         # Change power of the bullet
         firePower += change
+
+        if firePower <= 1:
+            firePower = 1
+
+        if firePower >= 100:
+            firePower = 100
+
         power(firePower)
 
         # Turret positioning
