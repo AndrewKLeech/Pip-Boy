@@ -14,7 +14,7 @@ display_height = 500
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 # Set the caption of the window to Turret Defense
-pygame.display.set_caption('Tanks')
+pygame.display.set_caption('Tank Defense!')
 
 # Create colours using RGB values
 black = (0, 0, 0)
@@ -119,6 +119,7 @@ def explosion(x, y):
 
         explode = False
 
+
 def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
     fire = True
     startingPos = list(pos)
@@ -133,10 +134,10 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
 
         startingPos[1] += int((((startingPos[0] - pos[0]) * .01/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
-        if startingPos[1] > display_height:
+        if startingPos[1] > .855 * display_height:
 
             hitX = int((startingPos[0] * display_height) / startingPos[1])
-            hitY = int(display_height)
+            hitY = int(.855 * display_height)
             explosion(hitX, hitY)
 
             fire = False
@@ -230,7 +231,7 @@ def game_intro():  # Function for game introduction screen
                     quit()
 
         gameDisplay.fill(black)
-        message_to_screen("Tanks!", green, 0, size="largeFont")
+        message_to_screen("Tank Defense!", green, 0, size="largeFont")
 
         # Text on the buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
