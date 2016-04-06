@@ -327,6 +327,9 @@ def gameLoop():  # Main game loop
         if mainTankX > display_width:
             mainTankX -= 5
 
+        if mainTankX < 0:
+            mainTankX += 5
+
         pygame.display.update()
         clock.tick(FPS)
 
