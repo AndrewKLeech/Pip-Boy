@@ -35,6 +35,9 @@ tankHeight = 20
 turretWidth = 5
 wheelWidth = 5
 
+# Ground height
+ground = .85 * display_height
+
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
     if size == "smallFont":
@@ -128,7 +131,8 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
 
         startingPos[1] += int((((startingPos[0] - pos[0]) * .01/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
-        if startingPos[1] > .845 * display_height:
+        # If the explosion is on the ground
+        if startingPos[1] > ground:
 
             hitX = int((startingPos[0]))
             hitY = int(startingPos[1])
@@ -306,7 +310,7 @@ def gameLoop():  # Main game loop
         mainTankX += tankMove
         gameDisplay.fill(black)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
-        pygame.draw.line(gameDisplay, green, (0, .855 * display_height), (display_width, .855 * display_height), 5)
+        pygame.draw.rect(gameDisplay, green, (0, ground, display_width, ground))
 
         # Change power of the bullet
         firePower += change
