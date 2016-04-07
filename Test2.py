@@ -9,9 +9,9 @@ from tkinter import *
 import spotipy
 import sys
 import webbrowser
+from PIL import Image, ImageTk
 
 PIP_FONT = ("Verdana", 12)
-photo = "mrPip.gif"
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -83,8 +83,12 @@ class StartPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       label = tk.Label(self, text = "photo will appear here", bg = "black", fg = "white")
-       label.pack(side = BOTTOM)
+       image = Image.open("mrPip.gif")
+       photo = ImageTk.PhotoImage(image)
+
+       label = tk.Label(self, image = photo, bg = "black", fg = "white", height = 40, width = 40)
+       label.image = photo #keeping refrence
+       label.pack(side = BOTTOM, padx = 10, pady = 10)
 
        #to make width for now
        label = tk.Label(self, width = 60, bg = "black")
