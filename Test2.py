@@ -121,13 +121,17 @@ class RadioPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       label2 = tk.Button(self, text = "Zara Larrsson", bg = "black", fg = "white", cursor = "hand2",
+       music1 = tk.Button(self, text = "Zara Larrsson", bg = "black", fg = "white", cursor = "hand2",
                           command = lambda: webbrowser.open_new(controller.music("spotify:artist:1Xylc3o4UrD53lo9CvFvVg")))
-       label2.pack(side = BOTTOM, padx = 10, pady = 10)
+       music1.place(x = 15, y = 60)
 
-       label1 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
+       music2 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
                           command = lambda: webbrowser.open_new(controller.music("spotify:artist:1TtJ8j22Roc24e2Jx3OcU4")))
-       label1.pack(side = BOTTOM, padx = 10, pady = 10)
+       music2.place(x = 15, y = 120)
+
+       music3 = tk.Button(self, text = "Tame Impala", bg = "black", fg = "white", cursor = "hand2",
+                          command = lambda: webbrowser.open_new(controller.music("spotify:artist:5INjqkS1o8h1imAzPqGZBb")))
+       music3.place(x = 12, y = 180)
 
 
 class MapPage(tk.Frame):
