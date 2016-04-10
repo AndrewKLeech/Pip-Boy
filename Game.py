@@ -98,6 +98,16 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     return turrets[turretPosition]
 
 
+def enemy(x, y):  # Draws the enemy
+
+    # Casting x and y to be ints
+    x = int(x)
+    y = int(y)
+
+    # Draw the enemy bomb
+    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
+
+
 def explosion(x, y):
 
     explode = True
@@ -270,6 +280,11 @@ def gameLoop():  # Main game loop
     firePower = 50
     change = 0
 
+    # Enemy positioning
+    mainEnemyX = display_width * .5
+    mainEnemyY = 0
+    enemyMove = 0
+
     while not gameExit:
         if gameOver == True:
             pygame.display.update()
@@ -324,7 +339,7 @@ def gameLoop():  # Main game loop
         mainTankX += tankMove
         gameDisplay.fill(black)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
-        pygame.draw.rect(gameDisplay, green, (0, ground, display_width, ground))
+        pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
 
         # Change power of the bullet
         firePower += change
