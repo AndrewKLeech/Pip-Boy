@@ -123,7 +123,12 @@ def explosion(x, y):
             explodeBitX = x + random.randrange(-1 * magnitude, magnitude)
             explodeBitY = y + random.randrange(-1 * magnitude, magnitude)
 
-            pygame.draw.circle(gameDisplay, green, (explodeBitX, explodeBitY), random.randrange(1, 5))
+            if explodeBitY > ground + 12:
+                pygame.draw.circle(gameDisplay, black, (explodeBitX, explodeBitY), random.randrange(1, 5))
+
+            else:
+                pygame.draw.circle(gameDisplay, green, (explodeBitX, explodeBitY), random.randrange(1, 5))
+
             magnitude += 1
 
             pygame.display.update()
