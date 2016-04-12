@@ -11,6 +11,7 @@ import sys
 import webbrowser
 from PIL import Image, ImageTk
 
+
 PIP_FONT = ("Verdana", 12)
 
 
@@ -190,8 +191,13 @@ class DataPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       label = tk.Label(self, text = "data functionality", bg = "black", fg = "white")
-       label.pack(side = BOTTOM)
+       image = Image.open("WalkPip.gif")
+       photo = ImageTk.PhotoImage(image)
+
+       label = tk.Label(self, image = photo, bg = "black", fg = "white")
+       label.image = photo #keeping refrence
+       label.pack(side = BOTTOM, padx = 10, pady = 25)
+
 
 
 class InvPage(tk.Frame):
@@ -270,4 +276,3 @@ class StatsPage(tk.Frame):
 
 app = SetUp()
 app.mainloop()
-
