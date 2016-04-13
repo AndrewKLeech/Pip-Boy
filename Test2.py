@@ -14,6 +14,16 @@ from PIL import Image, ImageTk
 
 PIP_FONT = ("Verdana", 12)
 
+URI = ['spotify:artist:58lV9VcRSjABbAbfWS6skp',
+       'spotify:artist:0PFtn5NtBbbUNbU9EAmIWF',
+       'spotify:artist:5INjqkS1o8h1imAzPqGZBb',
+       'spotify:artist:1HwM5zlC5qNWhJtM00yXzG',
+       'spotify:artist:4tZwfgrHOc3mvqYlEYSvVi',
+       'spotify:artist:3AA28KZvwAUcZuOKwyblJQ',
+       'spotify:artist:5K4W6rqBFWDnAN6FQUkS6x',
+       'spotify:artist:0SwO7SWeDHJijQ3XNS7xEE',
+       'spotify:artist:1dWEYMPtNmvSVaDNLgB6NV']
+
 
 class SetUp(tk.Tk):  #inheriting
    def __init__(self, *args, **kwargs):  #method, initialisng
@@ -44,17 +54,20 @@ class SetUp(tk.Tk):  #inheriting
        frame = self.frames[cont]
        frame.tkraise() #raised to the front
 
+   def increment(self, index):
+       index += 1
+
    def music(self, uri):
 
+       index = 0
        spotify = spotipy.Spotify()
        results = spotify.artist_top_tracks(uri)
 
        #getting the track and audio link to top song
        for track in results['tracks'][:1]:
           text2 = track['preview_url']
-
+           
        return text2
-
 
 class StartPage(tk.Frame):
 
@@ -127,13 +140,10 @@ class RadioPage(tk.Frame):
        music1.place(x = 15, y = 60)
        music1.image = play
 
+       index = 0
        music2 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
-                          command = lambda: webbrowser.open_new(controller.music("spotify:artist:1TtJ8j22Roc24e2Jx3OcU4")))
+                          command = lambda: webbrowser.open_new(controller.music(URI[index])))
        music2.place(x = 15, y = 120)
-
-       music3 = tk.Button(self, text = "Tame Impala", bg = "black", fg = "white", cursor = "hand2",
-                          command = lambda: webbrowser.open_new(controller.music("spotify:artist:5INjqkS1o8h1imAzPqGZBb")))
-       music3.place(x = 12, y = 180)
 
 
 class MapPage(tk.Frame):
