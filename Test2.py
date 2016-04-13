@@ -51,7 +51,6 @@ class SetUp(tk.Tk):  #inheriting
 
        #getting the track and audio link to top song
        for track in results['tracks'][:1]:
-          text = 'Track    : ' + track['name']
           text2 = track['preview_url']
 
        return text2
@@ -122,9 +121,11 @@ class RadioPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       music1 = tk.Button(self, text = "Zara Larrsson", bg = "black", fg = "white", cursor = "hand2",
+       play = PhotoImage(file = "play.png")
+       music1 = tk.Button(self, image = play, bg = "black", cursor = "hand2", width = 40, height = 30,
                           command = lambda: webbrowser.open_new(controller.music("spotify:artist:1Xylc3o4UrD53lo9CvFvVg")))
        music1.place(x = 15, y = 60)
+       music1.image = play
 
        music2 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
                           command = lambda: webbrowser.open_new(controller.music("spotify:artist:1TtJ8j22Roc24e2Jx3OcU4")))
