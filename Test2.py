@@ -8,7 +8,11 @@ import tkinter as ttk
 from tkinter import *
 import spotipy
 import sys
+import io
+spotify = spotipy.Spotify()
 import webbrowser
+from urllib.request import urlopen
+
 from PIL import Image, ImageTk
 
 
@@ -55,7 +59,7 @@ class SetUp(tk.Tk):  #inheriting
        frame.tkraise() #raised to the front
 
    def increment(self, index):
-       index += 1
+       index + 1
 
    def music(self, uri):
 
@@ -66,8 +70,38 @@ class SetUp(tk.Tk):  #inheriting
        #getting the track and audio link to top song
        for track in results['tracks'][:1]:
           text2 = track['preview_url']
-           
+
        return text2
+
+
+   def coverart(self, name):
+        if len(sys.argv) > 1:
+            artistName = ' '.join(sys.argv[1:])
+        else:
+            artistName = name
+
+        results = spotify.search(q='artist:' + name, type='artist')
+        items = results['artists']['items']
+        if len(items) > 0:
+            artist = items[0]
+            url = artist['images'][0]['url']
+
+
+        image_bytes = urlopen(url).read()
+        data_stream = io.BytesIO(image_bytes)
+
+        pil_image = Image.open(data_stream)
+
+        w, h = pil_image.size
+        fname = url.split('/')[-1]
+        sf = "{} ({}x{})".format(fname, w, h)
+        self.title(sf)
+
+        tk_image = ImageTk.PhotoImage(pil_image)
+
+        label = tk.Label(self, image = tk_image, bg = "black")
+        label.pack(padx = 5, pady = 5)
+
 
 class StartPage(tk.Frame):
 
@@ -144,6 +178,10 @@ class RadioPage(tk.Frame):
        music2 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
                           command = lambda: webbrowser.open_new(controller.music(URI[index])))
        music2.place(x = 15, y = 120)
+
+       coverArt = tk.Button(self, text = "Click for coverart", bg = "black", fg = "white", cursor = "hand2",
+                            command = lambda: controller.coverart("Kanye West"))
+       coverArt.place(x = 15, y = 180)
 
 
 class MapPage(tk.Frame):
