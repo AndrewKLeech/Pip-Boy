@@ -98,14 +98,14 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     return turrets[turretPosition]
 
 
-def enemy(x, y):  # Draws the enemy
+def enemy(x, y, move):  # Draws the enemy
 
     # Casting x and y to be ints
-    x = int(x)
-    y = int(y)
+    enemyX = int(x)
+    enemyY = int(y)
 
     # Draw the enemy bomb
-    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
+    pygame.draw.circle(gameDisplay, green, (enemyX, enemyY + move), 10)
 
 
 def explosion(x, y):
@@ -286,9 +286,10 @@ def gameLoop():  # Main game loop
     change = 0
 
     # Enemy positioning
-    mainEnemyX = display_width * .5
+    mainEnemyX = random.randrange(display_width * .25, display_width * .75)
     mainEnemyY = 0
     enemyMove = 0
+    changeMove = 1
 
     while not gameExit:
         if gameOver == True:
@@ -342,8 +343,11 @@ def gameLoop():  # Main game loop
 
         # Draw the game screen
         mainTankX += tankMove
+        enemyMove += changeMove
         gameDisplay.fill(black)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
+        # Draw the enemy
+        enemy(mainEnemyX, mainEnemyY, enemyMove)
         pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
 
         # Change power of the bullet
@@ -370,6 +374,16 @@ def gameLoop():  # Main game loop
 
         if mainTankX < 0:
             mainTankX += 5
+
+        enemyPos = mainEnemyY + enemyMove
+
+        # If the enemy hits the ground
+        if enemyPos > ground - 10:
+            explosion(mainEnemyX, enemyPos)
+            mainEnemyX = random.randrange(display_width * .25, display_width * .75)
+            mainEnemyY = 0
+            changeMove += 1
+            enemyMove = 0
 
         pygame.display.update()
         clock.tick(FPS)
