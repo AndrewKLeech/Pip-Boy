@@ -355,6 +355,25 @@ def game_intro():  # Function for game introduction screen
         clock.tick(15)
 
 
+def health(playerHealth, enemyHealth, pX, eX): # Health bars
+
+    # Player health
+    if playerHealth > 50:
+        playerColour = lightGreen
+    else:
+        playerColour = green
+
+    # Enemy health
+    if enemyHealth > 50:
+        enemyColour = lightGreen
+    else:
+        enemyColour = green
+
+    # Draw the health bars
+    pygame.draw.rect(gameDisplay, playerColour, (pX - 100, display_height * .7, playerHealth, 10))
+    pygame.draw.rect(gameDisplay, enemyColour, (eX, display_height * .7, enemyHealth, 10))
+
+
 def gameLoop():  # Main game loop
 
     gameExit = False
@@ -377,6 +396,10 @@ def gameLoop():  # Main game loop
     enemyTankX = display_width * .2
     enemyTankY = display_height * .8
     tankMove = 0
+
+    # Health
+    playerHealth = 100
+    enemyHealth = 100
 
     while not gameExit:
         if gameOver == True:
@@ -431,7 +454,10 @@ def gameLoop():  # Main game loop
 
         # Draw the game screen
         mainTankX += tankMove
+        pX = mainTankX
+        eX = enemyTankX
         gameDisplay.fill(black)
+        health(playerHealth, enemyHealth, pX, eX)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
         enemyBullet = enemyTank(enemyTankX, enemyTankY, 8)
         pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
