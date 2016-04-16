@@ -375,9 +375,9 @@ def game_intro():  # Function for game introduction screen
 
 def gameWin():  # Function for game introduction screen
 
-    gameWin = True
+    win = True
 
-    while gameWin:
+    while win:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -396,11 +396,11 @@ def gameWin():  # Function for game introduction screen
         clock.tick(15)
 
 
-def gameOver():  # Function for game introduction screen
+def over():  # Function for game introduction screen
 
-    gameOver = True
+    over = True
 
-    while gameOver:
+    while over:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -538,6 +538,13 @@ def gameLoop():  # Main game loop
             firePower = 100
 
         power(firePower)
+
+        # Check if gameOver or gameWin
+        if playerHealth < 1:
+            over()
+
+        elif enemyHealth < 1:
+            gameWin()
 
         # Turret positioning
         curTurretPosition += changeTurretPosition
