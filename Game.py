@@ -160,7 +160,7 @@ def explosion(x, y):
         explode = False
 
 
-def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
+def fire(pos, tanxX, tankY, turretPos, gunPower, tank="player"):  # Function for shooting and controlling bullet physics
 
     fire = True
 
@@ -172,9 +172,14 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
                 pygame.quit()
 
         pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
-        startingPos[0] -= (10 - turretPos)*2
 
-        startingPos[1] += int((((startingPos[0] - pos[0]) * .01/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
+        if tank == "enemy":
+            startingPos[0] += (10 - turretPos)*2
+
+        else:
+            startingPos[0] -= (10 - turretPos)*2
+
+        startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
         # If the explosion is on the ground
         if startingPos[1] > ground:
@@ -344,7 +349,8 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower)
+                    fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower, tank="player")
+                    fire(enemyBullet, enemyTankX, enemyTankY, 8, 33, tank="enemy")
 
                 elif event.key == pygame.K_a:
                     change = -1
@@ -367,7 +373,7 @@ def gameLoop():  # Main game loop
         mainTankX += tankMove
         gameDisplay.fill(black)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
-        enemyBullet = enemyTank(enemyTankX, enemyTankY, curTurretPosition)
+        enemyBullet = enemyTank(enemyTankX, enemyTankY, 8)
         pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
 
         # Change power of the bullet
