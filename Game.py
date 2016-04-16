@@ -98,14 +98,37 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     return turrets[turretPosition]
 
 
-def enemy(x, y, move):  # Draws the enemy
+def enemyTank(x, y, turretPosition):  # Draws the tank and turret
 
     # Casting x and y to be ints
-    enemyX = int(x)
-    enemyY = int(y)
+    x = int(x)
+    y = int(y)
 
-    # Draw the enemy bomb
-    pygame.draw.circle(gameDisplay, green, (enemyX, enemyY + move), 10)
+    # Set possible turret positions
+    turrets = [(x - 27, y - 2),
+               (x - 26, y - 5),
+               (x - 25, y - 8),
+               (x - 23, y - 12),
+               (x - 20, y - 14),
+               (x - 18, y - 15),
+               (x - 15, y - 17),
+               (x - 13, y - 19),
+               (x - 11, y - 21)]
+
+    # Draw the tank
+    pygame.draw.circle(gameDisplay, green, (int(x), int(y)), 10)
+    pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
+    pygame.draw.line(gameDisplay, green, (x, y), turrets[turretPosition], turretWidth)
+
+    pygame.draw.circle(gameDisplay, green, (x - 15, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x - 10, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x - 5, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 0, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 5, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 10, y + 20), wheelWidth)
+    pygame.draw.circle(gameDisplay, green, (x + 15, y + 20), wheelWidth)
+
+    return turrets[turretPosition]
 
 
 def explosion(x, y):
@@ -137,7 +160,7 @@ def explosion(x, y):
         explode = False
 
 
-def fire(pos, tanxX, tankY, turretPos, gunPower, enemyPos):  # Function for shooting and controlling bullet physics
+def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
 
     fire = True
 
@@ -161,9 +184,6 @@ def fire(pos, tanxX, tankY, turretPos, gunPower, enemyPos):  # Function for shoo
             explosion(hitX, hitY)
 
             fire = False
-
-        elif startingPos[1] == enemyPos:
-            return True
 
         pygame.display.update()
         clock.tick(100)
@@ -288,12 +308,10 @@ def gameLoop():  # Main game loop
     firePower = 50
     change = 0
 
-    # Enemy positioning
-    mainEnemyX = random.randrange(display_width * .25, display_width * .75)
-    mainEnemyY = 0
-    enemyMove = 0
-    changeMove = 1
-    hit = False
+    # enemyTank positioning
+    enemyTankX = display_width * .2
+    enemyTankY = display_height * .8
+    tankMove = 0
 
     while not gameExit:
         if gameOver == True:
@@ -326,7 +344,7 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    hit = fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower, enemyPos)
+                    fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower)
 
                 elif event.key == pygame.K_a:
                     change = -1
@@ -347,11 +365,9 @@ def gameLoop():  # Main game loop
 
         # Draw the game screen
         mainTankX += tankMove
-        enemyMove += changeMove
         gameDisplay.fill(black)
         bullet = tank(mainTankX, mainTankY, curTurretPosition)
-        # Draw the enemy
-        enemy(mainEnemyX, mainEnemyY, enemyMove)
+        enemyBullet = enemyTank(enemyTankX, enemyTankY, curTurretPosition)
         pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
 
         # Change power of the bullet
@@ -378,23 +394,6 @@ def gameLoop():  # Main game loop
 
         if mainTankX < 0:
             mainTankX += 5
-
-        enemyPos = mainEnemyY + enemyMove
-
-        # If the enemy hits the ground
-        if enemyPos > ground - 10:
-            explosion(mainEnemyX, enemyPos)
-            mainEnemyX = random.randrange(display_width * .25, display_width * .75)
-            mainEnemyY = 0
-            changeMove += 1
-            enemyMove = 0
-
-        elif hit:
-            explosion(mainEnemyX, enemyPos)
-            mainEnemyX = random.randrange(display_width * .25, display_width * .75)
-            mainEnemyY = 0
-            changeMove += 1
-            enemyMove = 0
 
         pygame.display.update()
         clock.tick(FPS)
