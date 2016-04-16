@@ -87,6 +87,7 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     pygame.draw.rect(gameDisplay, green, (x - tankHeight, y, tankWidth, tankHeight))
     pygame.draw.line(gameDisplay, green, (x, y), turrets[turretPosition], turretWidth)
 
+    # Draw the wheels
     pygame.draw.circle(gameDisplay, green, (x - 15, y + 20), wheelWidth)
     pygame.draw.circle(gameDisplay, green, (x - 10, y + 20), wheelWidth)
     pygame.draw.circle(gameDisplay, green, (x - 5, y + 20), wheelWidth)
@@ -95,6 +96,7 @@ def tank(x, y, turretPosition):  # Draws the tank and turret
     pygame.draw.circle(gameDisplay, green, (x + 10, y + 20), wheelWidth)
     pygame.draw.circle(gameDisplay, green, (x + 15, y + 20), wheelWidth)
 
+    # Return the turret position
     return turrets[turretPosition]
 
 
@@ -162,7 +164,9 @@ def explosion(x, y):
         explode = False
 
 
-def fire(pos, turretPos, gunPower):  # Function for shooting and controlling bullet physics
+def fire(pos, turretPos, gunPower, enemyTankX, enemyTankY):  # Function for shooting and controlling bullet physics
+
+    damage = 0
 
     fire = True
 
@@ -184,6 +188,10 @@ def fire(pos, turretPos, gunPower):  # Function for shooting and controlling bul
 
             hitX = int((startingPos[0]))
             hitY = int(startingPos[1])
+
+            if enemyTankX + 15 > hitX > enemyTankX - 15:
+                damage = 25
+
             explosion(hitX, hitY)
 
             fire = False
@@ -191,9 +199,12 @@ def fire(pos, turretPos, gunPower):  # Function for shooting and controlling bul
         pygame.display.update()
         clock.tick(60)
 
+    return damage
+
 
 def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shooting and controlling bullet physics
 
+    damage = 0
     currentPower = 1
     powerFound = False
 
@@ -246,12 +257,19 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
 
             hitX = int((startingPos[0]))
             hitY = int(startingPos[1])
+
+            if playerX + 15 > hitX > playerX - 15:
+                damage = 25
+
             explosion(hitX, hitY)
 
             fire = False
 
-    pygame.display.update()
-    clock.tick(60)
+
+        pygame.display.update()
+        clock.tick(60)
+
+    return damage
 
 
 def power(level):
@@ -355,7 +373,7 @@ def game_intro():  # Function for game introduction screen
         clock.tick(15)
 
 
-def health(playerHealth, enemyHealth, pX, eX): # Health bars
+def health(playerHealth, enemyHealth, pX, eX):  # Health bars
 
     # Player health
     if playerHealth > 50:
@@ -432,8 +450,10 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    fire(bullet, curTurretPosition, firePower)
-                    enemyFire(enemyBullet, 8, 33, mainTankX, mainTankY)
+                    damage = fire(bullet, curTurretPosition, firePower, enemyTankX, enemyTankY)
+                    enemyHealth -= damage
+                    damage = enemyFire(enemyBullet, 8, 33, mainTankX, mainTankY)
+                    playerHealth -= damage
 
                 elif event.key == pygame.K_a:
                     change = -1
