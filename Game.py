@@ -140,6 +140,8 @@ def explosion(x, y):
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+        choices = [green, lightGreen]
+
         magnitude = 1
 
         while magnitude < 50:
@@ -150,7 +152,7 @@ def explosion(x, y):
                 pygame.draw.circle(gameDisplay, black, (explodeBitX, explodeBitY), random.randrange(1, 5))
 
             else:
-                pygame.draw.circle(gameDisplay, green, (explodeBitX, explodeBitY), random.randrange(1, 5))
+                pygame.draw.circle(gameDisplay, choices[random.randrange(0,2)], (explodeBitX, explodeBitY), random.randrange(1, 5))
 
             magnitude += 1
 
