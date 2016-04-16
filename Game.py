@@ -137,7 +137,7 @@ def explosion(x, y):
         explode = False
 
 
-def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and controlling bullet physics
+def fire(pos, tanxX, tankY, turretPos, gunPower, enemyPos):  # Function for shooting and controlling bullet physics
 
     fire = True
 
@@ -161,6 +161,9 @@ def fire(pos, tanxX, tankY, turretPos, gunPower):  # Function for shooting and c
             explosion(hitX, hitY)
 
             fire = False
+
+        elif startingPos[1] == enemyPos:
+            return True
 
         pygame.display.update()
         clock.tick(100)
@@ -290,6 +293,7 @@ def gameLoop():  # Main game loop
     mainEnemyY = 0
     enemyMove = 0
     changeMove = 1
+    hit = False
 
     while not gameExit:
         if gameOver == True:
@@ -322,7 +326,7 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower)
+                    hit = fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower, enemyPos)
 
                 elif event.key == pygame.K_a:
                     change = -1
@@ -379,6 +383,13 @@ def gameLoop():  # Main game loop
 
         # If the enemy hits the ground
         if enemyPos > ground - 10:
+            explosion(mainEnemyX, enemyPos)
+            mainEnemyX = random.randrange(display_width * .25, display_width * .75)
+            mainEnemyY = 0
+            changeMove += 1
+            enemyMove = 0
+
+        elif hit:
             explosion(mainEnemyX, enemyPos)
             mainEnemyX = random.randrange(display_width * .25, display_width * .75)
             mainEnemyY = 0
