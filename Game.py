@@ -373,6 +373,52 @@ def game_intro():  # Function for game introduction screen
         clock.tick(15)
 
 
+def gameWin():  # Function for game introduction screen
+
+    gameWin = True
+
+    while gameWin:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+        gameDisplay.fill(black)
+        message_to_screen("You won!", green, -100, size="largeFont")
+        message_to_screen("Your enemy's tank was destroyed!", green, 0, size="smallFont")
+        message_to_screen("Replay to replay or quit to quit!", green, 100, size="smallFont")
+
+        # Text on the buttons
+        button("Replay", 25, 400, 100, 50, green, lightGreen, action="play")
+        button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
+
+        pygame.display.update()
+        clock.tick(15)
+
+
+def gameOver():  # Function for game introduction screen
+
+    gameOver = True
+
+    while gameOver:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+
+        gameDisplay.fill(black)
+        message_to_screen("Game over!", green, -100, size="largeFont")
+        message_to_screen("Your tank was destroyed!", green, 0, size="smallFont")
+        message_to_screen("Replay to replay or quit to quit!", green, 100, size="smallFont")
+
+        # Text on the buttons
+        button("Replay", 25, 400, 100, 50, green, lightGreen, action="play")
+        button("Quit", 375, 400, 100, 50, green, lightGreen, action="quit")
+
+        pygame.display.update()
+        clock.tick(15)
+
+
 def health(playerHealth, enemyHealth, pX, eX):  # Health bars
 
     # Player health
