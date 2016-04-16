@@ -208,6 +208,7 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
     currentPower = 1
     powerFound = False
 
+    # How the AI decides what power to uses
     while not powerFound:
 
         currentPower += 1
@@ -225,7 +226,10 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
 
             startingPos[0] += (10 - turretPos)*2
 
-            startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(currentPower/50))**2) - (turretPos + turretPos / (12 - turretPos)))
+            # Make currentPower random between 80% and 120% of the chosen power
+            gunPower = random.randrange(int(currentPower * .8), int(currentPower * 1.2))
+
+            startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(gunPower/50))**2) - (turretPos + turretPos / (12 - turretPos)))
 
             # If the explosion is on the ground
             if startingPos[1] > ground:
@@ -241,6 +245,7 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
     fire = True
     startingPos = list(pos)
 
+    # When the power is decided, it shoots
     while fire:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -250,7 +255,7 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
 
         startingPos[0] += (10 - turretPos)*2
 
-        startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(currentPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
+        startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
         # If the explosion is on the ground
         if startingPos[1] > ground:
