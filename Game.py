@@ -58,7 +58,7 @@ def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size
     gameDisplay.blit(textSurface, textRect)
 
 
-def message_to_screen(msg, color, y_displace=0, size= "smallFont"):  # Blits the text returned from text_objects
+def message_to_screen(msg, color, y_displace=0, size="smallFont"):  # Blits the text returned from text_objects
 
     textSurface, textRect = text_objects(msg, color, size)
     textRect.center = (int(display_width / 2), int(display_height / 2) + y_displace)
@@ -162,7 +162,7 @@ def explosion(x, y):
         explode = False
 
 
-def fire(pos, tanxX, tankY, turretPos, gunPower, tank="player"):  # Function for shooting and controlling bullet physics
+def fire(pos, turretPos, gunPower):  # Function for shooting and controlling bullet physics
 
     fire = True
 
@@ -175,11 +175,7 @@ def fire(pos, tanxX, tankY, turretPos, gunPower, tank="player"):  # Function for
 
         pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
 
-        if tank == "enemy":
-            startingPos[0] += (10 - turretPos)*2
-
-        else:
-            startingPos[0] -= (10 - turretPos)*2
+        startingPos[0] -= (10 - turretPos)*2
 
         startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(gunPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
 
@@ -193,7 +189,69 @@ def fire(pos, tanxX, tankY, turretPos, gunPower, tank="player"):  # Function for
             fire = False
 
         pygame.display.update()
-        clock.tick(100)
+        clock.tick(60)
+
+
+def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shooting and controlling bullet physics
+
+    currentPower = 1
+    powerFound = False
+
+    while not powerFound:
+
+        currentPower += 1
+        if currentPower > 100:
+            powerFound = True
+
+        fire = True
+
+        startingPos = list(pos)
+
+        while fire:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+
+            startingPos[0] += (10 - turretPos)*2
+
+            startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(currentPower/50))**2) - (turretPos + turretPos / (12 - turretPos)))
+
+            # If the explosion is on the ground
+            if startingPos[1] > ground:
+
+                hitX = int((startingPos[0]))
+                hitY = int(startingPos[1])
+
+                if playerX + 15 > hitX > playerX - 15:
+                    powerFound = True
+
+                fire = False
+
+    fire = True
+    startingPos = list(pos)
+
+    while fire:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        pygame.draw.circle(gameDisplay, green, (startingPos[0], startingPos[1]), 5)
+
+        startingPos[0] += (10 - turretPos)*2
+
+        startingPos[1] += int((((startingPos[0] - pos[0]) * .015/(currentPower/50))**2) - (turretPos + turretPos / (12 -  turretPos)))
+
+        # If the explosion is on the ground
+        if startingPos[1] > ground:
+
+            hitX = int((startingPos[0]))
+            hitY = int(startingPos[1])
+            explosion(hitX, hitY)
+
+            fire = False
+
+    pygame.display.update()
+    clock.tick(60)
 
 
 def power(level):
@@ -351,8 +409,8 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
-                    fire(bullet, mainTankX, mainTankY, curTurretPosition, firePower, tank="player")
-                    fire(enemyBullet, enemyTankX, enemyTankY, 8, 33, tank="enemy")
+                    fire(bullet, curTurretPosition, firePower)
+                    enemyFire(enemyBullet, 8, 33, mainTankX, mainTankY)
 
                 elif event.key == pygame.K_a:
                     change = -1
