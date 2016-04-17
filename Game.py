@@ -189,8 +189,19 @@ def fire(pos, turretPos, gunPower, enemyTankX, enemyTankY):  # Function for shoo
             hitX = int((startingPos[0]))
             hitY = int(startingPos[1])
 
-            if enemyTankX + 15 > hitX > enemyTankX - 15:
+            # If the explosion hits the tank
+            # Various damages for how close it was
+            if enemyTankX + 10 > hitX > enemyTankX - 10:
                 damage = 25
+
+            elif enemyTankX + 15 > hitX > enemyTankX - 15:
+                damage = 20
+
+            elif enemyTankX + 20 > hitX > enemyTankX - 20:
+                damage = 15
+
+            elif enemyTankX + 30 > hitX > enemyTankX - 30:
+                damage = 5
 
             explosion(hitX, hitY)
 
@@ -263,8 +274,19 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
             hitX = int((startingPos[0]))
             hitY = int(startingPos[1])
 
-            if playerX + 15 > hitX > playerX - 15:
+            # If the explosion hits the tank
+            # Various damages for how close it was
+            if playerX + 10 > hitX > playerX - 10:
                 damage = 25
+
+            elif playerX + 15 > hitX > playerX - 15:
+                damage = 20
+
+            elif playerX + 20 > hitX > playerX - 20:
+                damage = 15
+
+            elif playerX + 30 > hitX > playerX - 30:
+                damage = 5
 
             explosion(hitX, hitY)
 
