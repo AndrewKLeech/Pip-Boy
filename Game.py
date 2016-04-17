@@ -38,6 +38,10 @@ wheelWidth = 5
 # Ground height
 ground = .85 * display_height
 
+# Load sounds
+fireSound = pygame.mixer.Sound("fireSound.wav")
+cannon = pygame.mixer.Sound("cannon.wav")
+
 
 def text_objects(text, color, size="smallFont"):  # Function returns text for blitting
 
@@ -135,6 +139,9 @@ def enemyTank(x, y, turretPosition):  # Draws the tank and turret
 
 def explosion(x, y):
 
+    # Play a sound
+    pygame.mixer.Sound.play(fireSound)
+
     explode = True
 
     while explode:
@@ -165,6 +172,9 @@ def explosion(x, y):
 
 
 def fire(pos, turretPos, gunPower, enemyTankX, enemyTankY):  # Function for shooting and controlling bullet physics
+
+    # Play a sound
+    pygame.mixer.Sound.play(cannon)
 
     damage = 0
 
@@ -214,6 +224,9 @@ def fire(pos, turretPos, gunPower, enemyTankX, enemyTankY):  # Function for shoo
 
 
 def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shooting and controlling bullet physics
+
+    # Play a sound
+    pygame.mixer.Sound.play(cannon)
 
     damage = 0
     currentPower = 1
@@ -391,6 +404,9 @@ def game_intro():  # Function for game introduction screen
         gameDisplay.fill(black)
         message_to_screen("Tank War!", green, -200, size="largeFont")
         message_to_screen("Kill the enemy tank before it kills you!", green, -50, size="smallFont")
+        message_to_screen("Press play to play!", green, 0, size="smallFont")
+        message_to_screen("Press controls to view the game's controls!", green, 50, size="smallFont")
+        message_to_screen("Press quit to exit the game!", green, 100, size="smallFont")
 
         # Text on the buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
