@@ -1,6 +1,8 @@
 import io
 import urllib.request
 from PIL import Image
+import socket
+
 
 
 def get_location(query):
@@ -25,3 +27,4 @@ def get_map():
 
 get_location("14 cherry ave, dublin 15")
 get_map()
+print(socket.gethostbyname(socket.gethostname()))
