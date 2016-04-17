@@ -14,7 +14,7 @@ display_height = 500
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 # Set the caption of the window to Turret Defense
-pygame.display.set_caption('Tank Defense!')
+pygame.display.set_caption('Tank War!')
 
 # Create colours using RGB values
 black = (0, 0, 0)
@@ -137,7 +137,7 @@ def enemyTank(x, y, turretPosition):  # Draws the tank and turret
     return turrets[turretPosition]
 
 
-def explosion(x, y):
+def explosion(x, y): # Draws an explosion on screen
 
     # Play a sound
     pygame.mixer.Sound.play(fireSound)
@@ -157,7 +157,7 @@ def explosion(x, y):
             explodeBitX = x + random.randrange(-1 * magnitude, magnitude)
             explodeBitY = y + random.randrange(-1 * magnitude, magnitude)
 
-            if explodeBitY > ground + 12:
+            if explodeBitY > ground + 13:
                 pygame.draw.circle(gameDisplay, black, (explodeBitX, explodeBitY), random.randrange(1, 5))
 
             else:
@@ -312,7 +312,7 @@ def enemyFire(pos, turretPos, gunPower, playerX, playerY):  # Function for shoot
     return damage
 
 
-def power(level):
+def power(level):  # Blits the power level
 
     text = smallFont.render("Power: " + str(level) + "%", True, green)
     gameDisplay.blit(text, [display_width * .75, 10])
