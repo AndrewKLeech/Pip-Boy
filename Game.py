@@ -389,7 +389,8 @@ def game_intro():  # Function for game introduction screen
                     quit()
 
         gameDisplay.fill(black)
-        message_to_screen("Tank Defense!", green, 0, size="largeFont")
+        message_to_screen("Tank War!", green, -200, size="largeFont")
+        message_to_screen("Kill the enemy tank before it kills you!", green, -50, size="smallFont")
 
         # Text on the buttons
         button("Play", 25, 400, 100, 50, green, lightGreen, action="play")
@@ -523,8 +524,31 @@ def gameLoop():  # Main game loop
                     pause()
 
                 elif event.key == pygame.K_SPACE:
+                    # Player's shot
                     damage = fire(bullet, curTurretPosition, firePower, enemyTankX, enemyTankY)
                     enemyHealth -= damage
+
+                    # Enemy moves
+                    movements = ['f', 'b']
+                    move = random.randrange(0, 2)
+
+                    for x in range(random.randrange(0, 10)):
+                        if display_width * .33 > enemyTankX > display_width * .05:
+                            if movements[move] == "f":
+                                enemyTankX += 5
+                            elif movements[move] == "r":
+                                enemyTankX -= 5
+
+                            # If the tank moves, re draw the screen
+                            gameDisplay.fill(black)
+                            health(playerHealth, enemyHealth, pX, eX)
+                            bullet = tank(mainTankX, mainTankY, curTurretPosition)
+                            enemyBullet = enemyTank(enemyTankX, enemyTankY, 8)
+                            pygame.draw.rect(gameDisplay, green, (0, ground, display_width, 10))
+                            pygame.display.update()
+                            clock.tick(FPS)
+
+                    # Enemy's shot
                     damage = enemyFire(enemyBullet, 8, 33, mainTankX, mainTankY)
                     playerHealth -= damage
 
@@ -584,7 +608,7 @@ def gameLoop():  # Main game loop
         if mainTankX > display_width:
             mainTankX -= 5
 
-        if mainTankX < 0:
+        if mainTankX < display_width * .66:
             mainTankX += 5
 
         pygame.display.update()
