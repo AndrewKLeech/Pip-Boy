@@ -138,7 +138,7 @@ class StartPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       image = Image.open("mrPip.gif")
+       image = Image.open("Pip Boy Images\mrPip.gif")
        photo = ImageTk.PhotoImage(image)
 
        label = tk.Label(self, image = photo, bg = "black", fg = "white", height = 40, width = 40)
@@ -272,13 +272,6 @@ class DataPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       image = Image.open("WalkPip.gif")
-       photo = ImageTk.PhotoImage(image)
-
-       label = tk.Label(self, image = photo, bg = "black", fg = "white")
-       label.image = photo #keeping refrence
-       label.pack(side = BOTTOM, padx = 10, pady = 25)
-
 
 
 class InvPage(tk.Frame):
@@ -337,23 +330,34 @@ class StatsPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       f = Figure(figsize = (7,5), dpi = 50)
-       a = f.add_subplot(111) #onexone chart number 1
+       strength = tk.Button(self, text ="STRENGTH", bg="black", fg="green", width = 20)
+       strength.place(x = 35, y = 50)
 
-       data = (1, 2, 3, 4, 5)
-       ind = numpy.arange(5) #the x plots
-       width = 0.4
+       perception = tk.Button(self, text ="PERCEPTION", bg="black", fg="green", width = 20)
+       perception.place(x = 35, y = 75)
 
-       a.barh(ind + width, data, width, color = 'g')
+       endurance = tk.Button(self, text ="ENDURANCE", bg="black", fg="green", width = 20)
+       endurance.place(x = 35, y = 100)
 
-       a.set_axis_bgcolor('black')
-       a.set_title('Stats')
-       a.set_xticks(ind + width)
-       a.set_xticklabels(('Strength', 'Perception', 'Endurance', 'Charisma', 'Agility'))
+       charisma = tk.Button(self, text ="CHARISMA", bg="black", fg="green", width = 20)
+       charisma.place(x = 35, y = 125)
 
-       canvas = FigureCanvasTkAgg(f, self)
-       canvas.show()
-       canvas.get_tk_widget().pack(side = BOTTOM)
+       intelligence = tk.Button(self, text ="INTELLIGENCE", bg="black", fg="green", width = 20)
+       intelligence.place(x = 35, y = 150)
+
+       agility = tk.Button(self, text ="AGILITY", bg="black", fg="green", width = 20)
+       agility.place(x = 35, y = 175)
+
+       luck = tk.Button(self, text ="LUCK", bg="black", fg="green", width = 20)
+       luck.place(x = 35, y = 200)
+
+
+       image = Image.open("Pip Boy Images\Strength.gif")
+       photo = ImageTk.PhotoImage(image)
+
+       label = tk.Label(self, image = photo, bg = "black", fg = "white")
+       label.image = photo #keeping refrence
+       label.pack(side = RIGHT, padx = 10, pady = 25)
 
 app = SetUp()
 app.mainloop()
