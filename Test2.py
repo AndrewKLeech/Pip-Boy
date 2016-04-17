@@ -147,7 +147,7 @@ class StartPage(tk.Frame):
 
        #to make width for now
        label = tk.Label(self, width = 60, bg = "black")
-       label.pack(side = BOTTOM)
+       label.pack(side = BOTTOM, pady = 120)
 
 
 class RadioPage(tk.Frame):
@@ -330,34 +330,50 @@ class StatsPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       strength = tk.Button(self, text ="STRENGTH", bg="black", fg="green", width = 20)
+       #new buttons
+
+       strength = tk.Button(self, text ="STRENGTH", bg="black", fg="green", width = 20,
+                            command = lambda: self.ImageShow("Pip Boy Images\Strength.gif"))
        strength.place(x = 35, y = 50)
 
-       perception = tk.Button(self, text ="PERCEPTION", bg="black", fg="green", width = 20)
+       perception = tk.Button(self, text ="PERCEPTION", bg="black", fg="green", width = 20,
+                              command = lambda: self.ImageShow("Pip Boy Images\Perception.gif"))
        perception.place(x = 35, y = 75)
 
-       endurance = tk.Button(self, text ="ENDURANCE", bg="black", fg="green", width = 20)
+       endurance = tk.Button(self, text ="ENDURANCE", bg="black", fg="green", width = 20,
+                              command = lambda: self.ImageShow("Pip Boy Images\Endurance.png"))
        endurance.place(x = 35, y = 100)
 
-       charisma = tk.Button(self, text ="CHARISMA", bg="black", fg="green", width = 20)
+       charisma = tk.Button(self, text ="CHARISMA", bg="black", fg="green", width = 20,
+                              command = lambda: self.ImageShow("Pip Boy Images\Charisma.gif"))
        charisma.place(x = 35, y = 125)
 
-       intelligence = tk.Button(self, text ="INTELLIGENCE", bg="black", fg="green", width = 20)
+       intelligence = tk.Button(self, text ="INTELLIGENCE", bg="black", fg="green", width = 20,
+                              command = lambda: self.ImageShow("Pip Boy Images\Intelligence.png"))
        intelligence.place(x = 35, y = 150)
 
-       agility = tk.Button(self, text ="AGILITY", bg="black", fg="green", width = 20)
+       agility = tk.Button(self, text ="AGILITY", bg="black", fg="green", width = 20,
+                              command = lambda: self.ImageShow("Pip Boy Images\Agility.png"))
        agility.place(x = 35, y = 175)
 
-       luck = tk.Button(self, text ="LUCK", bg="black", fg="green", width = 20)
+       luck = tk.Button(self, text ="LUCK", bg="black", fg="green", width = 20,
+                        command = lambda: self.ImageShow("Pip Boy Images\Luck.png"))
        luck.place(x = 35, y = 200)
 
 
-       image = Image.open("Pip Boy Images\Strength.gif")
+   def ImageShow(self, path):
+
+       label = tk.Label(self, bg = "black")
+       label.place(x = 215, y = 75)
+
+       image = Image.open(path)
        photo = ImageTk.PhotoImage(image)
 
        label = tk.Label(self, image = photo, bg = "black", fg = "white")
        label.image = photo #keeping refrence
-       label.pack(side = RIGHT, padx = 10, pady = 25)
+       label.place(x = 215, y = 75)
+
+
 
 app = SetUp()
 app.mainloop()
