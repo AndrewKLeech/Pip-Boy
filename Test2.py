@@ -4,7 +4,6 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 import tkinter as tk
-import tkinter as ttk
 from tkinter import *
 import spotipy
 import sys
@@ -15,18 +14,15 @@ from urllib.request import urlopen
 
 from PIL import Image, ImageTk
 
-
-PIP_FONT = ("Verdana", 12)
-
-URI = ['spotify:artist:58lV9VcRSjABbAbfWS6skp',
-       'spotify:artist:0PFtn5NtBbbUNbU9EAmIWF',
-       'spotify:artist:5INjqkS1o8h1imAzPqGZBb',
-       'spotify:artist:1HwM5zlC5qNWhJtM00yXzG',
-       'spotify:artist:4tZwfgrHOc3mvqYlEYSvVi',
-       'spotify:artist:3AA28KZvwAUcZuOKwyblJQ',
-       'spotify:artist:5K4W6rqBFWDnAN6FQUkS6x',
-       'spotify:artist:0SwO7SWeDHJijQ3XNS7xEE',
-       'spotify:artist:1dWEYMPtNmvSVaDNLgB6NV']
+song1 = "spotify:artist:58lV9VcRSjABbAbfWS6skp"
+song2 = 'spotify:artist:0PFtn5NtBbbUNbU9EAmIWF'
+song3 = 'spotify:artist:5INjqkS1o8h1imAzPqGZBb'
+song4 = 'spotify:artist:1HwM5zlC5qNWhJtM00yXzG'
+song5 = 'spotify:artist:4tZwfgrHOc3mvqYlEYSvVi'
+song6 = 'spotify:artist:3AA28KZvwAUcZuOKwyblJQ'
+song7 = 'spotify:artist:5T0MSzX9RC5NA6gAI6irSn'
+song8 = 'spotify:artist:0SwO7SWeDHJijQ3XNS7xEE'
+song9 = 'spotify:artist:1dWEYMPtNmvSVaDNLgB6NV'
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -58,12 +54,8 @@ class SetUp(tk.Tk):  #inheriting
        frame = self.frames[cont]
        frame.tkraise() #raised to the front
 
-   def increment(self, index):
-       index + 1
-
    def music(self, uri):
 
-       index = 0
        spotify = spotipy.Spotify()
        results = spotify.artist_top_tracks(uri)
 
@@ -71,36 +63,52 @@ class SetUp(tk.Tk):  #inheriting
        for track in results['tracks'][:1]:
           text2 = track['preview_url']
 
-       return text2
+          return text2
 
+       if uri == song1:
+            self.coverart("Bon Jovi")
+       if uri == song2:
+            self.coverart("Toto")
+       if uri == song3:
+            self.coverart("Tame Impala")
+       if uri == song4:
+           self.coverart("DMX")
+       if uri == song5:
+            self.coverart("Daft Punk")
+       if uri == song6:
+            self.coverart("Gorrillaz")
+       if uri == song7:
+            self.coverart("Estelle")
+       if uri == song8:
+            self.coverart("MGMT")
+       if uri == song9:
+            self.coverart("Saint Motel")
 
    def coverart(self, name):
+
         if len(sys.argv) > 1:
             artistName = ' '.join(sys.argv[1:])
         else:
             artistName = name
 
-        results = spotify.search(q='artist:' + name, type='artist')
+        results = spotify.search(q='artist:' + artistName, type='artist')
         items = results['artists']['items']
         if len(items) > 0:
             artist = items[0]
             url = artist['images'][0]['url']
-
 
         image_bytes = urlopen(url).read()
         data_stream = io.BytesIO(image_bytes)
 
         pil_image = Image.open(data_stream)
 
-        w, h = pil_image.size
-        fname = url.split('/')[-1]
-        sf = "{} ({}x{})".format(fname, w, h)
-        self.title(sf)
-
         tk_image = ImageTk.PhotoImage(pil_image)
 
-        label = tk.Label(self, image = tk_image, bg = "black")
+        label = tk.Label(self, image = tk_image, height = 200, width = 200)
+        label.image = tk_image #keeping refrence
         label.pack(padx = 5, pady = 5)
+
+
 
 
 class StartPage(tk.Frame):
@@ -168,21 +176,45 @@ class RadioPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       play = PhotoImage(file = "play.png")
-       music1 = tk.Button(self, image = play, bg = "black", cursor = "hand2", width = 40, height = 30,
-                          command = lambda: webbrowser.open_new(controller.music("spotify:artist:1Xylc3o4UrD53lo9CvFvVg")))
-       music1.place(x = 15, y = 60)
-       music1.image = play
+       music1 = tk.Button(self, text = "Song 1", fg = "white", bg = "black", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song1)))
+       music1.place(x = 70, y = 75)
 
-       index = 0
-       music2 = tk.Button(self, text = "Purity Ring", bg = "black", fg = "white", cursor = "hand2",
-                          command = lambda: webbrowser.open_new(controller.music(URI[index])))
-       music2.place(x = 15, y = 120)
+       music2 = tk.Button(self, text = "Song 2", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song2)))
+       music2.place(x = 70, y = 150)
 
-       coverArt = tk.Button(self, text = "Click for coverart", bg = "black", fg = "white", cursor = "hand2",
-                            command = lambda: controller.coverart("Kanye West"))
-       coverArt.place(x = 15, y = 180)
+       music3 = tk.Button(self, text = "Song 3", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song3)))
+       music3.place(x = 70, y = 225)
 
+       music4 = tk.Button(self, text = "Song 4", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song4)))
+       music4.place(x = 175 , y = 75)
+
+       music5 = tk.Button(self, text = "Song 5", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song5)))
+       music5.place( x = 175 , y = 150)
+
+       music6 = tk.Button(self, text = "Song 6", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song6)))
+       music6.place(x = 175, y = 225)
+
+       music7 = tk.Button(self, text = "Song 7", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song7)))
+       music7.place(x = 280, y = 75)
+
+       music8 = tk.Button(self, text = "Song 8", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song8)))
+       music8.place(x = 280, y = 150)
+
+       music9 = tk.Button(self, text = "Song 9", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                          command = lambda: webbrowser.open_new(controller.music(song9)))
+       music9.place(x = 280, y = 225)
+
+       coverart = tk.Button(self, text = "Cover", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+                            command = lambda: controller.coverart("Estelle"))
+       coverart.place(x = 290, y = 240)
 
 class MapPage(tk.Frame):
    def __init__(self, parent, controller):
