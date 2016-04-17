@@ -1,13 +1,9 @@
-import urllib.parse
 import urllib.request
+import urllib.parse
+import urllib.error
+import io
 from math import log, exp, tan, atan, pi, ceil
-
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 from PIL import Image
-
 
 EARTH_RADIUS = 6378137
 EQUATOR_CIRCUMFERENCE = 2 * pi * EARTH_RADIUS
@@ -15,18 +11,18 @@ INITIAL_RESOLUTION = EQUATOR_CIRCUMFERENCE / 256.0
 ORIGIN_SHIFT = EQUATOR_CIRCUMFERENCE / 2.0
 
 
-def latlontopixels(lat, lon, z):
+def latlontopixels(lat, lon, zoom):
     mx = (lon * ORIGIN_SHIFT) / 180.0
     my = log(tan((90 + lat) * pi / 360.0)) / (pi / 180.0)
     my = (my * ORIGIN_SHIFT) / 180.0
-    res = INITIAL_RESOLUTION / (2 ** z)
+    res = INITIAL_RESOLUTION / (2 ** zoom)
     px = (mx + ORIGIN_SHIFT) / res
     py = (my + ORIGIN_SHIFT) / res
     return px, py
 
 
-def pixelstolatlon(px, py, z):
-    res = INITIAL_RESOLUTION / (2 ** z)
+def pixelstolatlon(px, py, zoom):
+    res = INITIAL_RESOLUTION / (2 ** zoom)
     mx = px * res - ORIGIN_SHIFT
     my = py * res - ORIGIN_SHIFT
     lat = (my / ORIGIN_SHIFT) * 180.0
@@ -84,7 +80,7 @@ for x in range(cols):
                                       'sensor': 'false',
                                       'scale': scale})
         url = 'http://maps.google.com/maps/api/staticmap?' + urlparams
-        ##f = urllib.request.urlopen(url)
-        ##im = Image.open(StringIO(f.read()))
-        final.paste(im, (int(x * largura), int(y * altura)))
+        f=urllib.request.urlopen(url)
+        im=Image.open(io.BytesIO(f.read()))
+        final.paste(im, (int(x*largura), int(y*altura)))
 final.show()
