@@ -1,3 +1,19 @@
+import tkinter as tk
+import os
+
+w, h = 500, 500
+
+# Pack pygame in `embed`.
+root = tk.Tk()
+embed = tk.Frame(root, width=w, height=h)
+embed.pack()
+
+# Tell pygame's SDL window which window ID to use
+os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
+
+# Show the window so it's assigned an ID.
+root.update()
+
 # Game for Pip-Boy
 # Imports
 import pygame
