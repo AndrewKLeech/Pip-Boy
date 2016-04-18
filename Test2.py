@@ -1,17 +1,7 @@
-import matplotlib
-import numpy
-matplotlib.use("TkAgg")
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.figure import Figure
 import tkinter as tk
 from tkinter import *
 import spotipy
-import sys
-import io
-spotify = spotipy.Spotify()
 import webbrowser
-from urllib.request import urlopen
-
 from PIL import Image, ImageTk
 
 song1 = "spotify:artist:58lV9VcRSjABbAbfWS6skp"
@@ -33,7 +23,8 @@ class SetUp(tk.Tk):  #inheriting
        tk.Tk.wm_iconbitmap(self, default="favicon.ico")
 
        container = tk.Frame(self) #container for holding everything
-       container.pack(side = "top", fill = "both", expand = True)
+       container.pack(side = "top", fill = None, expand = False)
+       container.pack_propagate(0) # don't shrink
        container.grid_rowconfigure(0, weight = 1)
        container.grid_columnconfigure(0, weight = 1)
 
@@ -64,7 +55,6 @@ class SetUp(tk.Tk):  #inheriting
           text2 = track['preview_url']
 
        return text2
-
 
 
 class StartPage(tk.Frame):
@@ -164,47 +154,47 @@ class RadioPage(tk.Frame):
        music1 = tk.Button(self, image = bonjovi, fg = "white", bg = "black", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song1)))
        music1.image = bonjovi #keeping refrence
-       music1.place(x = 70, y = 75)
+       music1.place(x = 70, y = 70)
 
        music2 = tk.Button(self, image = toto, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song2)))
        music2.image = toto
-       music2.place(x = 70, y = 150)
+       music2.place(x = 70, y = 145)
 
        music3 = tk.Button(self, image = tameimpala, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song3)))
        music3.image = tameimpala
-       music3.place(x = 70, y = 225)
+       music3.place(x = 70, y = 220)
 
        music4 = tk.Button(self, image = dmx, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song4)))
        music4.image = dmx
-       music4.place(x = 175 , y = 75)
+       music4.place(x = 175 , y = 70)
 
        music5 = tk.Button(self, image = daftpunk, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song5)))
        music5.image = daftpunk
-       music5.place( x = 175 , y = 150)
+       music5.place( x = 175 , y = 145)
 
        music6 = tk.Button(self, image = gorrillaz, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song6)))
        music6.image = gorrillaz
-       music6.place(x = 175, y = 225)
+       music6.place(x = 175, y = 220)
 
        music7 = tk.Button(self, image = estelle, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song7)))
        music7.image = estelle
-       music7.place(x = 280, y = 75)
+       music7.place(x = 280, y = 70)
 
        music8 = tk.Button(self, image = mgmt, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song8)))
        music8.image = mgmt
-       music8.place(x = 280, y = 150)
+       music8.place(x = 280, y = 145)
 
        music9 = tk.Button(self, image = saintmotel, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song9)))
        music9.image = saintmotel
-       music9.place(x = 280, y = 225)
+       music9.place(x = 280, y = 220)
 
 
 class MapPage(tk.Frame):
