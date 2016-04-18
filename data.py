@@ -24,9 +24,8 @@ def tweet():
     if entryWidget.get().strip() == "":
         print("Empty")
     else:
-        #t.statuses.update(status=entryWidget.get().strip())
-        #entryWidget.put().strip()
-        entryWidget.insert(0,'')
+        t.statuses.update(status=entryWidget.get().strip())
+        entryWidget.delete(0,END)
         print("working")
 
 
