@@ -63,51 +63,7 @@ class SetUp(tk.Tk):  #inheriting
        for track in results['tracks'][:1]:
           text2 = track['preview_url']
 
-          return text2
-
-       if uri == song1:
-            self.coverart("Bon Jovi")
-       if uri == song2:
-            self.coverart("Toto")
-       if uri == song3:
-            self.coverart("Tame Impala")
-       if uri == song4:
-           self.coverart("DMX")
-       if uri == song5:
-            self.coverart("Daft Punk")
-       if uri == song6:
-            self.coverart("Gorrillaz")
-       if uri == song7:
-            self.coverart("Estelle")
-       if uri == song8:
-            self.coverart("MGMT")
-       if uri == song9:
-            self.coverart("Saint Motel")
-
-   def coverart(self, name):
-
-        if len(sys.argv) > 1:
-            artistName = ' '.join(sys.argv[1:])
-        else:
-            artistName = name
-
-        results = spotify.search(q='artist:' + artistName, type='artist')
-        items = results['artists']['items']
-        if len(items) > 0:
-            artist = items[0]
-            url = artist['images'][0]['url']
-
-        image_bytes = urlopen(url).read()
-        data_stream = io.BytesIO(image_bytes)
-
-        pil_image = Image.open(data_stream)
-
-        tk_image = ImageTk.PhotoImage(pil_image)
-
-        label = tk.Label(self, image = tk_image, height = 200, width = 200)
-        label.image = tk_image #keeping refrence
-        label.pack(padx = 5, pady = 5)
-
+       return text2
 
 
 
@@ -176,45 +132,80 @@ class RadioPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
-       music1 = tk.Button(self, text = "Song 1", fg = "white", bg = "black", cursor = "hand2", width = 10, height = 3,
+        #opening images for buttons
+
+       bonjovi1 = Image.open("coverart\Bonjovi.gif")
+       bonjovi = ImageTk.PhotoImage(bonjovi1)
+
+       toto1 = Image.open("coverart\Toto.gif")
+       toto = ImageTk.PhotoImage(toto1)
+
+       tameimpala1 = Image.open("coverart\Tameimpala.gif")
+       tameimpala = ImageTk.PhotoImage(tameimpala1)
+
+       dmx1 = Image.open("coverart\Dmx.gif")
+       dmx = ImageTk.PhotoImage(dmx1)
+
+       daftpunk1 = Image.open("coverart\Daftpunk.gif")
+       daftpunk = ImageTk.PhotoImage(daftpunk1)
+
+       gorrillaz1 = Image.open("coverart\Gorrillaz.gif")
+       gorrillaz = ImageTk.PhotoImage(gorrillaz1)
+
+       estelle1 = Image.open("coverart\estelle.gif")
+       estelle = ImageTk.PhotoImage(estelle1)
+
+       mgmt1 = Image.open("coverart\Mgmt.gif")
+       mgmt = ImageTk.PhotoImage(mgmt1)
+
+       saintmotel1 = Image.open("coverart\Saintmotel.gif")
+       saintmotel = ImageTk.PhotoImage(saintmotel1)
+
+       music1 = tk.Button(self, image = bonjovi, fg = "white", bg = "black", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song1)))
+       music1.image = bonjovi #keeping refrence
        music1.place(x = 70, y = 75)
 
-       music2 = tk.Button(self, text = "Song 2", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music2 = tk.Button(self, image = toto, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song2)))
+       music2.image = toto
        music2.place(x = 70, y = 150)
 
-       music3 = tk.Button(self, text = "Song 3", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music3 = tk.Button(self, image = tameimpala, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song3)))
+       music3.image = tameimpala
        music3.place(x = 70, y = 225)
 
-       music4 = tk.Button(self, text = "Song 4", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music4 = tk.Button(self, image = dmx, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song4)))
+       music4.image = dmx
        music4.place(x = 175 , y = 75)
 
-       music5 = tk.Button(self, text = "Song 5", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music5 = tk.Button(self, image = daftpunk, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song5)))
+       music5.image = daftpunk
        music5.place( x = 175 , y = 150)
 
-       music6 = tk.Button(self, text = "Song 6", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music6 = tk.Button(self, image = gorrillaz, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song6)))
+       music6.image = gorrillaz
        music6.place(x = 175, y = 225)
 
-       music7 = tk.Button(self, text = "Song 7", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music7 = tk.Button(self, image = estelle, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song7)))
+       music7.image = estelle
        music7.place(x = 280, y = 75)
 
-       music8 = tk.Button(self, text = "Song 8", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music8 = tk.Button(self, image = mgmt, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song8)))
+       music8.image = mgmt
        music8.place(x = 280, y = 150)
 
-       music9 = tk.Button(self, text = "Song 9", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
+       music9 = tk.Button(self, image = saintmotel, bg = "black", fg = "white", cursor = "hand2", width = 75, height = 75,
                           command = lambda: webbrowser.open_new(controller.music(song9)))
+       music9.image = saintmotel
        music9.place(x = 280, y = 225)
 
-       coverart = tk.Button(self, text = "Cover", bg = "black", fg = "white", cursor = "hand2", width = 10, height = 3,
-                            command = lambda: controller.coverart("Estelle"))
-       coverart.place(x = 290, y = 240)
 
 class MapPage(tk.Frame):
    def __init__(self, parent, controller):
@@ -341,7 +332,7 @@ class StatsPage(tk.Frame):
        perception.place(x = 35, y = 75)
 
        endurance = tk.Button(self, text ="ENDURANCE", bg="black", fg="green", width = 20,
-                              command = lambda: self.ImageShow("Pip Boy Images\Endurance.png"))
+                              command = lambda: self.ImageShow("Pip Boy Images\Endurance.gif"))
        endurance.place(x = 35, y = 100)
 
        charisma = tk.Button(self, text ="CHARISMA", bg="black", fg="green", width = 20,
@@ -349,21 +340,21 @@ class StatsPage(tk.Frame):
        charisma.place(x = 35, y = 125)
 
        intelligence = tk.Button(self, text ="INTELLIGENCE", bg="black", fg="green", width = 20,
-                              command = lambda: self.ImageShow("Pip Boy Images\Intelligence.png"))
+                              command = lambda: self.ImageShow("Pip Boy Images\Intelligence.gif"))
        intelligence.place(x = 35, y = 150)
 
        agility = tk.Button(self, text ="AGILITY", bg="black", fg="green", width = 20,
-                              command = lambda: self.ImageShow("Pip Boy Images\Agility.png"))
+                              command = lambda: self.ImageShow("Pip Boy Images\Agility.gif"))
        agility.place(x = 35, y = 175)
 
        luck = tk.Button(self, text ="LUCK", bg="black", fg="green", width = 20,
-                        command = lambda: self.ImageShow("Pip Boy Images\Luck.png"))
+                        command = lambda: self.ImageShow("Pip Boy Images\Luck.gif"))
        luck.place(x = 35, y = 200)
 
 
    def ImageShow(self, path):
 
-       label = tk.Label(self, bg = "black")
+       label = tk.Label(self, bg = "black",  width = 40, height = 40)
        label.place(x = 215, y = 75)
 
        image = Image.open(path)
@@ -371,7 +362,7 @@ class StatsPage(tk.Frame):
 
        label = tk.Label(self, image = photo, bg = "black", fg = "white")
        label.image = photo #keeping refrence
-       label.place(x = 215, y = 75)
+       label.place(x = 200, y = 75)
 
 
 
