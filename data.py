@@ -7,7 +7,7 @@ def showTweets(x, num):
     for i in range(0, num):
         line1 = (x[i]['user']['screen_name'])
         line2 = (x[i]['text'])
-        w = Label(master, text=line1 + "\n" + line2)
+        w = Label(master, text=line1 + "\n" + line2 + "\n\n")
         w.pack()
 
 def getTweets():
