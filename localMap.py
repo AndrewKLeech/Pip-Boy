@@ -1,6 +1,7 @@
 from io import BytesIO
 import urllib.request
 import PIL.Image
+from PIL import ImageTk
 import socket
 import simplejson
 from tkinter import *
@@ -14,8 +15,12 @@ def get_map(lat,lng):
     print(lat)
     url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=500x500&zoom=16&sensor=false")
     buffer = BytesIO(urllib.request.urlopen(url).read())
-    image = PIL.Image.open(buffer)
-    image.show()
+    pil_image = PIL.Image.open(buffer)
+    tk_image = ImageTk.PhotoImage(pil_image)
+    # put the image on a typical widget
+    label = Label(master, image=tk_image)
+    label.pack(padx=5, pady=5)
+    master.mainloop()
 
 
 def get_coordinates(from_sensor=False):
@@ -48,6 +53,8 @@ master = Tk()
 
 
 master.title("Tkinter Entry Widget")
+master.geometry('500x500')
+
 master["padx"] = 40
 master["pady"] = 20
 # Create a text frame to hold the text Label and the Entry widget
@@ -63,5 +70,9 @@ entryWidget.pack(side=LEFT)
 textFrame.pack()
 button = Button(master, text="Submit", command=get_coordinates)
 button.pack()
-
 master.mainloop()
+
+
+
+
+
