@@ -20,9 +20,4 @@ The aim of the project is to recreate the OS of a Pip-Boy (Personal Information 
 
 #### Game:
 Game to be in the style of the PipBoy, as done within the game: http://fallout.wikia.com/wiki/Pip-Boy_3000_Mark_IV_minigames
-
-<<<<<<< HEAD
-The game requires you to install the PyGame library. Tutorial video here: 
-=======
 The game requires you to install the PyGame library. Tutorial video here: https://www.youtube.com/watch?v=ZRgjAjUfgGI 
->>>>>>> fe0f888c96d8ddd39dfbe19fc8193cb1172954ac
