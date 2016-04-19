@@ -4,6 +4,7 @@ import spotipy
 import webbrowser
 from PIL import Image, ImageTk
 import os
+from twitter import *
 
 song1 = "spotify:artist:58lV9VcRSjABbAbfWS6skp"
 song2 = 'spotify:artist:0PFtn5NtBbbUNbU9EAmIWF'
@@ -14,6 +15,14 @@ song6 = 'spotify:artist:3AA28KZvwAUcZuOKwyblJQ'
 song7 = 'spotify:artist:5T0MSzX9RC5NA6gAI6irSn'
 song8 = 'spotify:artist:0SwO7SWeDHJijQ3XNS7xEE'
 song9 = 'spotify:artist:1dWEYMPtNmvSVaDNLgB6NV'
+
+
+    # Put in token, token_key, con_secret, con_secret_key
+t = Twitter(
+            auth=OAuth('705153959368007680-F5OUf8pvmOlXku1b7gpJPSAToqzV4Fb', 'bEGLkUJBziLc17EuKLTAMio8ChmFxP9aHYADwRXnxDsoC',
+           'gYDgR8lcTGcVZS9ucuEIYsMuj', '1dwHsLDN2go3aleQ8Q2vcKRfLETc51ipsP8310ayizL2p3Ycii'))
+
+numberOfTweets = 5
 
 
 class SetUp(tk.Tk):  #inheriting
@@ -56,6 +65,31 @@ class SetUp(tk.Tk):  #inheriting
           text2 = track['preview_url']
 
        return text2
+
+   def showTweets(self, x, num):
+    # display a number of new tweets and usernames
+    for i in range(0, num):
+        line1 = (x[i]['user']['screen_name'])
+        line2 = (x[i]['text'])
+        w = Label(self, text=line1 + "\n" + line2 + "\n\n")
+        w.pack()
+
+   def getTweets(self):
+
+        x = t.statuses.home_timeline(screen_name="AndrewKLeech")
+        return x
+
+
+   def tweet(self):
+
+        global entryWidget
+
+        if entryWidget.get().strip() == "":
+            print("Empty")
+        else:
+            t.statuses.update(status=entryWidget.get().strip())
+            entryWidget.delete(0,END)
+            print("working")
 
    def game(self):
        w, h = 500, 500
@@ -720,7 +754,7 @@ class StartPage(tk.Frame):
        data.place(x = 175, y = 0)
 
        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
-                       command = lambda: controller.show_frame(InvPage))
+                       command = lambda: controller.game())
        inv.place(x = 255, y = 0)
 
        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
@@ -758,7 +792,7 @@ class RadioPage(tk.Frame):
        data.place(x = 175, y = 0)
 
        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
-                       command = lambda: controller.show_frame(InvPage))
+                       command = lambda: controller.game())
        inv.place(x = 255, y = 0)
 
        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
@@ -859,7 +893,7 @@ class MapPage(tk.Frame):
        data.place(x = 175, y = 0)
 
        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
-                       command = lambda: controller.show_frame(InvPage))
+                       command = lambda: controller.game())
        inv.place(x = 255, y = 0)
 
        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
@@ -889,12 +923,25 @@ class DataPage(tk.Frame):
        data.place(x = 175, y = 0)
 
        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
-                       command = lambda: controller.show_frame(InvPage))
+                       command = lambda: controller.game())
        inv.place(x = 255, y = 0)
 
        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
+
+       #Create a Label in textFrame
+       controller.showTweets(controller.getTweets(), numberOfTweets)
+       entryLabel = Label(self)
+       entryLabel["text"] = "Make a new Tweet:"
+       entryLabel.pack(side = LEFT)
+       # Create an Entry Widget in textFrame
+       entryWidget = Entry(self)
+       entryWidget["width"] = 50
+       entryWidget.pack(side=LEFT)
+
+       button = Button(self, text="Submit", command = controller.tweet)
+       button.pack()
 
 
 
@@ -944,7 +991,7 @@ class StatsPage(tk.Frame):
        data.place(x = 175, y = 0)
 
        inv = tk.Button(self, text ="INV", bg="black", fg="green", width = 10,
-                       command = lambda: controller.show_frame(InvPage))
+                       command = lambda: controller.game())
        inv.place(x = 255, y = 0)
 
        stats = tk.Button(self, text ="STATS", bg="black", fg="green", width = 10,
