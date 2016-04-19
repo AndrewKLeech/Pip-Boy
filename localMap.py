@@ -1,30 +1,39 @@
-import io
+from io import BytesIO
 import urllib.request
 from PIL import Image
 import socket
+import simplejson
+
+googleGeocodeUrl = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 
-
-def get_location(query):
-
-
-    params = { }
-    params[ 'sensor' ] = "false"
-    params[ 'address' ] = query
-
-    params = urllib.parse.urlencode( params )
-    print("https://maps.googleapis.com/maps/api/geocode/json?%s" % params)
-
-    f = urllib.request.urlopen("https://maps.googleapis.com/maps/api/geocode/json?%s" % params)
-
-
-def get_map():
-
-    url = "https://maps.googleapis.com/maps/api/staticmap?center=53.3766353,-6.3887243&size=500x500&zoom=15&sensor=false"
-    buffer = io.BytesIO(urllib.request.urlopen(url).read())
+def get_map(lat,lng):
+    latString = str(lat)
+    lngString = str(lng)
+    print(lat)
+    url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=500x500&zoom=16&sensor=false")
+    buffer = BytesIO(urllib.request.urlopen(url).read())
     image = Image.open(buffer)
     image.show()
 
-get_location("14 cherry ave, dublin 15")
-get_map()
-print(socket.gethostbyname(socket.gethostname()))
+
+def get_coordinates(query, from_sensor=False):
+    query = query.encode('utf-8')
+    params = {
+        'address': query,
+        'sensor': "true" if from_sensor else "false"
+    }
+    url = googleGeocodeUrl + urllib.parse.urlencode(params)
+    json_response = urllib.request.urlopen(url)
+    response = simplejson.loads(json_response.read())
+    if response['results']:
+        location = response['results'][0]['geometry']['location']
+        latitude, longitude = location['lat'], location['lng']
+        print(query, latitude, longitude)
+    else:
+        latitude, longitude = None, None
+        print(query, "<no results>")
+    get_map(latitude, longitude)
+
+
+get_coordinates("new york")
