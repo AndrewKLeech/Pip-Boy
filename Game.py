@@ -24,7 +24,6 @@ t = Twitter(
 
 numberOfTweets = 5
 
-
 class SetUp(tk.Tk):  #inheriting
    def __init__(self, *args, **kwargs):  #method, initialisng
 
@@ -82,14 +81,15 @@ class SetUp(tk.Tk):  #inheriting
 
    def tweet(self):
 
-        global entryWidget
 
-        if entryWidget.get().strip() == "":
+        text = entryWidget.get().strip()
+        if text == "":
             print("Empty")
         else:
-            t.statuses.update(status=entryWidget.get().strip())
+            t.statuses.update(status=text)
             entryWidget.delete(0,END)
             print("working")
+
 
    def game(self):
        w, h = 500, 500
@@ -904,6 +904,9 @@ class MapPage(tk.Frame):
        label.pack(side = BOTTOM)
 
 
+
+
+
 class DataPage(tk.Frame):
    def __init__(self, parent, controller):
 
@@ -930,6 +933,7 @@ class DataPage(tk.Frame):
                          command = lambda: controller.show_frame(StatsPage))
        stats.place(x = 335, y = 0)
 
+       global entryWidget
        #Create a Label in textFrame
        controller.showTweets(controller.getTweets(), numberOfTweets)
        entryLabel = Label(self)
@@ -939,7 +943,6 @@ class DataPage(tk.Frame):
        entryWidget = Entry(self)
        entryWidget["width"] = 50
        entryWidget.pack(side=LEFT)
-
        button = Button(self, text="Submit", command = controller.tweet)
        button.pack()
 
