@@ -12,7 +12,6 @@ def showTweets(x, num):
 
 def getTweets():
 
-
     x = t.statuses.home_timeline(screen_name="AndrewKLeech")
     return x
 
