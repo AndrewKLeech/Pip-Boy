@@ -15,6 +15,8 @@ The aim of the project is to recreate the OS of a Pip-Boy (Personal Information 
 #### Music player:
 
 #### Map:
+Map uses the google static map api and google geocode api. It gets an image of a map of the location the user enters.
+The geocode info comes through json so a json library was needed to use this.
 
 #### Twitter:
 
