@@ -13,7 +13,8 @@ def get_map(lat,lng):
     latString = str(lat)
     lngString = str(lng)
     print(lat)
-    url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=500x500&zoom=16&style=feature:road.local%7Celement:geometry%7Ccolor:0x00ff00%7Cweight:1%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:administrative%7Celement:labels%7Cweight:3.9%7Cvisibility:on%7Cinverse_lightness:true&style=feature:poi%7Cvisibility:simplified&sensor=false")
+    url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=500x500&zoom=16&style=feature:road.local%7Celement:geometry%7Ccolor:0x00ff00%7Cweight:1%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:administrative%7Celement:labels%7Cweight:3.9%7Cvisibility:on%7Cinverse_lightness:true&style=feature:poi%7Cvisibility:simplified&markers=color:blue%7Clabel:H%7C"+latString+","+lngString+"&markers=size:tiny%7Ccolor:green%7CDelta+Junction,AK\
+&sensor=false")
     buffer = BytesIO(urllib.request.urlopen(url).read())
     pil_image = PIL.Image.open(buffer)
     tk_image = ImageTk.PhotoImage(pil_image)
