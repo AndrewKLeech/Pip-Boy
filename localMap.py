@@ -6,9 +6,6 @@ import socket
 import simplejson
 from tkinter import *
 
-#url used for google geocodeing api
-googleGeocodeUrl = 'http://maps.googleapis.com/maps/api/geocode/json?'
-
 
 def get_map(lat,lng):
     latString = str(lat)
@@ -38,6 +35,8 @@ def get_coordinates(from_sensor=False):
             'address': query,
             'sensor': "true" if from_sensor else "false"
         }
+        #url used for google geocodeing api
+        googleGeocodeUrl = 'http://maps.googleapis.com/maps/api/geocode/json?'
         url = googleGeocodeUrl + urllib.parse.urlencode(params)
         json_response = urllib.request.urlopen(url)
         response = simplejson.loads(json_response.read())
