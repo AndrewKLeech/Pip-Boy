@@ -1,7 +1,6 @@
 from twitter import *
 from tkinter import *
 
-
 def showTweets(x, num):
     # display a number of new tweets and usernames
     for i in range(0, num):
@@ -33,7 +32,7 @@ t = Twitter(
     auth=OAuth('705153959368007680-F5OUf8pvmOlXku1b7gpJPSAToqzV4Fb', 'bEGLkUJBziLc17EuKLTAMio8ChmFxP9aHYADwRXnxDsoC',
                'gYDgR8lcTGcVZS9ucuEIYsMuj', '1dwHsLDN2go3aleQ8Q2vcKRfLETc51ipsP8310ayizL2p3Ycii'))
 
-numberOfTweets = 5
+numberOfTweets = 10
 
 
 

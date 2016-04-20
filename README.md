@@ -20,6 +20,7 @@ The geocode info comes through json so a json library was needed to use this.
 
 #### Twitter:
 Using a twitter library and the twitter api, the pip-boy program can read a twitter users feed and also send tweets from in the app.
+Tutorial video here: https://www.youtube.com/watch?v=Ur2AQKoGbbA&feature=youtu.be
 
 #### Game:
 Game to be in the style of the PipBoy, as done within the game: http://fallout.wikia.com/wiki/Pip-Boy_3000_Mark_IV_minigames
