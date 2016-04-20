@@ -5,6 +5,9 @@
 2. Andrew Leech (C14403082): Map and Twitter feed.
 3. Cillian McCabe (C14454828): Game.
 
+### How to run:
+Main program is in game.py
+
 ### Outline:
 The aim of the project is to recreate the OS of a Pip-Boy (Personal Information Processor) from the Fallout series using the Python language.
 
