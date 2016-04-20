@@ -953,11 +953,11 @@ class MapPage(tk.Frame):
        # Create a text frame to hold the text Label and the Entry widget
        textFrame = Frame(self)
        #Create a Label in textFrame
-       entryLabel = Label(textFrame)
+       entryLabel = Label(self)
        entryLabel["text"] = "Where are you?"
        entryLabel.pack(side=LEFT)
        # Create an Entry Widget in textFrame
-       entryWidget2 = Entry(textFrame)
+       entryWidget2 = Entry(self)
        entryWidget2["width"] = 50
        entryWidget2.pack(side=LEFT)
        textFrame.pack()
