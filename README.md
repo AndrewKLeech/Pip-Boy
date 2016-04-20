@@ -6,7 +6,17 @@
 3. Cillian McCabe (C14454828): Game.
 
 ### How to run:
-Main program is in game.py
+Main program is in game.py. Libraries needed are: 
+tkinter
+spotipy
+webbrowser
+PIL
+os
+twitter
+io
+urllib.request
+urllib.parse
+simplejson
 
 ### Outline:
 The aim of the project is to recreate the OS of a Pip-Boy (Personal Information Processor) from the Fallout series using the Python language.
