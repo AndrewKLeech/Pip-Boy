@@ -28,7 +28,7 @@ t = Twitter(
             auth=OAuth('705153959368007680-F5OUf8pvmOlXku1b7gpJPSAToqzV4Fb', 'bEGLkUJBziLc17EuKLTAMio8ChmFxP9aHYADwRXnxDsoC',
            'gYDgR8lcTGcVZS9ucuEIYsMuj', '1dwHsLDN2go3aleQ8Q2vcKRfLETc51ipsP8310ayizL2p3Ycii'))
 
-numberOfTweets = 2
+numberOfTweets = 3
 
 class SetUp(tk.Tk):  #inheriting
    def __init__(self, *args, **kwargs):  #method, initialisng
@@ -79,10 +79,9 @@ class SetUp(tk.Tk):  #inheriting
             line2 = (x[i]['text'])
             #w = Label(self, text=line1 + "\n" + line2 + "\n\n")
             #w.pack()
-            place = 10*x
             self.label = Label(self,text=line1 + "\n" + line2 + "\n\n", width = 100)
-            self.label.place(x = 215, y = -100)
-            label.pack()
+            self.label.place(x = 215, y = 0)
+            self.label.pack()
 
 
 
@@ -108,13 +107,13 @@ class SetUp(tk.Tk):  #inheriting
        latString = str(lat)
        lngString = str(lng)
        #Map url from google maps, has marker and colors included
-       url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=500x500&zoom=16&style=feature:road.local%7Celement:geometry%7Ccolor:0x00ff00%7Cweight:1%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:administrative%7Celement:labels%7Cweight:3.9%7Cvisibility:on%7Cinverse_lightness:true&style=feature:poi%7Cvisibility:simplified&markers=color:blue%7Clabel:H%7C"+latString+","+lngString+"&markers=size:tiny%7Ccolor:green%7CDelta+Junction,AK\&sensor=false")
+       url = ("https://maps.googleapis.com/maps/api/staticmap?center="+latString+","+lngString+"&size=450x250&zoom=16&style=feature:road.local%7Celement:geometry%7Ccolor:0x00ff00%7Cweight:1%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:landscape%7Celement:geometry.fill%7Ccolor:0x000000%7Cvisibility:on&style=feature:administrative%7Celement:labels%7Cweight:3.9%7Cvisibility:on%7Cinverse_lightness:true&style=feature:poi%7Cvisibility:simplified&markers=color:blue%7Clabel:H%7C"+latString+","+lngString+"&markers=size:tiny%7Ccolor:green%7CDelta+Junction,AK\&sensor=false")
        buffer = BytesIO(urllib.request.urlopen(url).read())
        pil_image = PIL.Image.open(buffer)
        tk_image = ImageTk.PhotoImage(pil_image)
        # put the image in program
-       label = Label(self, image=tk_image)
-       label.pack(padx=5, pady=5)
+       mapLabel = Label(image=tk_image)
+       mapLabel.pack()
        mainloop()
 
 
@@ -123,6 +122,7 @@ class SetUp(tk.Tk):  #inheriting
 
       if entryWidget2.get().strip() == "":
          print("Empty")
+         mapLabel.pack_forget()
       else:
          query=entryWidget2.get().strip()
          print("working")
@@ -958,6 +958,7 @@ class MapPage(tk.Frame):
        label = tk.Label(self, text = "map functionality", bg = "black", fg = "white")
        label.pack(side = BOTTOM)
        global entryWidget2
+       global mapLabel
        # Create a text frame to hold the text Label and the Entry widget
        textFrame = Frame(self)
        #Create a Label in textFrame
@@ -969,6 +970,7 @@ class MapPage(tk.Frame):
        entryWidget2["width"] = 50
        entryWidget2.pack(side=LEFT)
        textFrame.pack()
+       mapLabel = Label(self)
        button = Button(self, text="Submit", command=controller.get_coordinates)
        button.pack(side=BOTTOM)
 
