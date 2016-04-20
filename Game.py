@@ -28,7 +28,7 @@ t = Twitter(
             auth=OAuth('705153959368007680-F5OUf8pvmOlXku1b7gpJPSAToqzV4Fb', 'bEGLkUJBziLc17EuKLTAMio8ChmFxP9aHYADwRXnxDsoC',
            'gYDgR8lcTGcVZS9ucuEIYsMuj', '1dwHsLDN2go3aleQ8Q2vcKRfLETc51ipsP8310ayizL2p3Ycii'))
 
-numberOfTweets = 5
+numberOfTweets = 2
 
 class SetUp(tk.Tk):  #inheriting
    def __init__(self, *args, **kwargs):  #method, initialisng
@@ -56,7 +56,6 @@ class SetUp(tk.Tk):  #inheriting
        self.show_frame(StartPage)
 
    def show_frame(self, cont):
-
        frame = self.frames[cont]
        frame.tkraise() #raised to the front
 
@@ -71,13 +70,21 @@ class SetUp(tk.Tk):  #inheriting
 
        return text2
 
+
    def showTweets(self, x, num):
-    # display a number of new tweets and usernames
-    for i in range(0, num):
-        line1 = (x[i]['user']['screen_name'])
-        line2 = (x[i]['text'])
-        w = Label(self, text=line1 + "\n" + line2 + "\n\n")
-        w.pack()
+        # display a number of new tweets and usernames
+
+        for i in range(0, num):
+            line1 = (x[i]['user']['screen_name'])
+            line2 = (x[i]['text'])
+            #w = Label(self, text=line1 + "\n" + line2 + "\n\n")
+            #w.pack()
+            place = 10*x
+            self.label = Label(self,text=line1 + "\n" + line2 + "\n\n", width = 100)
+            self.label.place(x = 215, y = -100)
+            label.pack()
+
+
 
    def getTweets(self):
 
@@ -109,6 +116,7 @@ class SetUp(tk.Tk):  #inheriting
        label = Label(self, image=tk_image)
        label.pack(padx=5, pady=5)
        mainloop()
+
 
    def get_coordinates(self,from_sensor=False):
 
@@ -962,7 +970,7 @@ class MapPage(tk.Frame):
        entryWidget2.pack(side=LEFT)
        textFrame.pack()
        button = Button(self, text="Submit", command=controller.get_coordinates)
-       button.pack()
+       button.pack(side=BOTTOM)
 
 
 
@@ -995,7 +1003,7 @@ class DataPage(tk.Frame):
 
        global entryWidget
        #Create a Label in textFrame
-       controller.showTweets(controller.getTweets(), numberOfTweets)
+       #controller.showTweets(controller.getTweets(), numberOfTweets)
        entryLabel = Label(self)
        entryLabel["text"] = "Make a new Tweet:"
        entryLabel.pack(side = LEFT)
@@ -1003,6 +1011,8 @@ class DataPage(tk.Frame):
        entryWidget = Entry(self)
        entryWidget["width"] = 50
        entryWidget.pack(side=LEFT)
+       buttonGet = Button(self, text="Get Tweets", command = lambda: controller.showTweets(controller.getTweets(), numberOfTweets))
+       buttonGet.pack()
        button = Button(self, text="Submit", command = controller.tweet)
        button.pack()
 
