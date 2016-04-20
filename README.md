@@ -11,7 +11,9 @@ The aim of the project is to recreate the OS of a Pip-Boy (Personal Information 
 (Information on the Pip-Boy: http://fallout.wikia.com/wiki/Pip-Boy_3000_Mark_IV as well as Pip-OS: http://fallout.wikia.com/wiki/Pip-OS_v7.1.0.8)
 
 #### UI Design:
-UI Design: Design follows the PipBoy/menu style http://o.aolcdn.com/hss/storage/midas/24a0592f92f2765f98cee4c68addc493/202922823/pip-boy-app.gif 
+UI Design: Design follows the PipBoy/menu style 
+![Image of Pip-Boy]
+http://o.aolcdn.com/hss/storage/midas/24a0592f92f2765f98cee4c68addc493/202922823/pip-boy-app.gif 
 consists of buttons which load different class/pages.
 
 #### Stat:
