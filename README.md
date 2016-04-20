@@ -43,7 +43,7 @@ consists of buttons which load different class/pages.
 
 #### Stat:
 Stats displays the images from PipBoy, when buttons are pressed. There demonstrating how to do this:  
-https://www.youtube.com/watch?v=ys-M_Hgi0mUhttps://www.youtube.com/watch?v=ys-M_Hgi0mU
+https://www.youtube.com/watch?v=ys-M_Hgi0mU
 
 #### Radio:
 Radio uses spotify API (spotipy library). This generates links to a 30 second preview of 9 songs from a button press. 
