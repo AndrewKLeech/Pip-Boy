@@ -1,7 +1,7 @@
 # Pip-Boy
 
 ### Team members:
-1. Katie Fitzgerald (C14391781): UI Design and music.
+1. Katie Fitzgerald (C14391781): UI Design, Stats, and music.
 2. Andrew Leech (C14403082): Map and Twitter feed.
 3. Cillian McCabe (C14454828): Game.
 
@@ -11,8 +11,15 @@ The aim of the project is to recreate the OS of a Pip-Boy (Personal Information 
 (Information on the Pip-Boy: http://fallout.wikia.com/wiki/Pip-Boy_3000_Mark_IV as well as Pip-OS: http://fallout.wikia.com/wiki/Pip-OS_v7.1.0.8)
 
 #### UI Design:
+UI Design: Design follows the PipBoy/menu style http://o.aolcdn.com/hss/storage/midas/24a0592f92f2765f98cee4c68addc493/202922823/pip-boy-app.gif 
+consists of buttons which load different class/pages.
 
-#### Music player:
+#### Stat:
+Stats displays the images from PipBoy, when buttons are pressed. There demonstrating how to do this:  
+https://www.youtube.com/watch?v=ys-M_Hgi0mUhttps://www.youtube.com/watch?v=ys-M_Hgi0mU
+
+#### Radio:
+Radio uses spotify API (spotipy library). This generates links to a 30 second preview of 9 songs from a button press. 
 
 #### Map:
 Map uses the google static map api and google geocode api. It gets an image of a map of the location the user enters.
