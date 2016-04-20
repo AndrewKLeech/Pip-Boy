@@ -7,16 +7,30 @@
 
 ### How to run:
 Main program is in game.py. Libraries needed are: 
+
 tkinter
+
 spotipy
+
 webbrowser
+
 PIL
+
 os
+
 twitter
+
 io
+
 urllib.request
+
 urllib.parse
+
 simplejson
+
+pygame
+
+random
 
 ### Outline:
 The aim of the project is to recreate the OS of a Pip-Boy (Personal Information Processor) from the Fallout series using the Python language.
